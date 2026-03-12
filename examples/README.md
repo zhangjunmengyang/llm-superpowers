@@ -1,5 +1,7 @@
 # Examples
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 This directory is for users who want to start fast.
 
 Each example shows:

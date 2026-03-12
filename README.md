@@ -1,5 +1,7 @@
 # LLM Algorithm Engineer Superpowers
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 An open skill pack for LLM algorithm engineers.
 
 This repository is for the core training side of LLM engineering: post-training, finetuning, alignment, reasoning, evaluation, data, and training systems. It is intentionally not an agent-product or AI application workflow pack.
