@@ -42,6 +42,7 @@ When using this skill, produce:
 - chosen change surface
 - chosen stage and why
 - smallest runnable recipe
+- smallest meaningful delta
 - recommended open-source framework
 - success condition
 - kill condition
@@ -65,5 +66,5 @@ When using this skill, produce:
 
 ## References
 
-- Read `references/algorithms.md` for experiment-design heuristics and stage choice rules.
+- Read `references/algorithms.md` for experiment-design heuristics, default bars, stop rules, and stage choice rules.
 - Read `references/frameworks.md` for public framework selection and first-run mapping.

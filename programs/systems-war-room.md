@@ -30,6 +30,7 @@ Freeze these first:
 5. Re-measure.
 6. Use `$throughput-and-oom-triage` if the issue is operationally concrete.
 7. Use `$llm-eval-loop` before declaring a systems fix successful if quality could have shifted.
+8. Reclassify the problem if three one-axis interventions fail to move the board.
 
 ## Minimum Board Metrics
 
@@ -49,6 +50,7 @@ Freeze these first:
 - no “throughput win” without confirming quality did not drift
 - no switching frameworks until simpler measurements fail
 - no blaming the algorithm before the system is measured
+- no endless knob turning without a stop rule
 
 ## Exit Conditions
 

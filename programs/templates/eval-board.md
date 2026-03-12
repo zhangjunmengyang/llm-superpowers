@@ -4,6 +4,13 @@
 
 ## Candidate
 
+## Measurement Setup
+
+- prompts or benchmark version
+- decoding settings
+- judge setup if any
+- repeatability or confidence note
+
 ## Headline Metrics
 
 | Metric | Baseline | Candidate | Delta | Notes |
@@ -24,6 +31,10 @@
 - worst regression slice
 - representative failures
 - whether failures look like data, recipe, eval, or systems
+
+## Blind Spots
+
+- what this board still does not prove
 
 ## Final Decision
 

@@ -26,6 +26,17 @@ Record:
 - compile or data wait if visible
 - quality check after the intervention
 
+## Failure Signatures
+
+| Symptom | Likely cause | First thing to measure | First safe intervention |
+| --- | --- | --- | --- |
+| OOM at step 0 | optimizer state, sharding, launch config, model too large for the stack | memory at init and optimizer allocation | lower microbatch, add checkpointing, then shard |
+| OOM after a few steps | activation growth, long-example outliers, packing issues, leaks | max sequence length and activation footprint | cap length, inspect packing, enable checkpointing |
+| Low utilization and low memory | underbatching, dataloader stalls, host-device gaps | data wait, CPU load, batch formation | clean the loader, raise effective batch if comparable |
+| High utilization but low tokens per second | kernel choice, communication, bad parallel layout | step breakdown and communication time | better kernel, then better parallel layout |
+| Stable at small scale, unstable at large scale | effective batch change, precision, sharding interaction | grad norm, overflow, loss-scale behavior | lower LR, verify precision settings, reduce batch |
+| Quality dropped after a systems fix | comparability broken by a changed recipe surface | same smoke set before vs after | revert or isolate the systems fix |
+
 ## Bottleneck Map
 
 ### OOM
@@ -66,6 +77,13 @@ First levers:
 - continuous batching
 - KV cache tuning
 - only then tensor parallelism if needed
+
+## Stop Rules
+
+- if three one-axis interventions fail to move the board, reclassify the problem before trying more knobs
+- if the smallest reproduction is still unstable, stop scaling work and fix the minimal case first
+- if a systems fix changes quality on the smoke set, do not call it a systems-only win
+- if you are about to switch frameworks without a measured local bottleneck, stop and justify the migration first
 
 ## Decision Heuristics
 

@@ -33,6 +33,7 @@ When using this skill, produce:
 - prioritized interventions
 - rollback point
 - quality guard
+- stop rule if the current line of triage fails
 
 ## Hard Rules
 
@@ -52,4 +53,4 @@ When using this skill, produce:
 
 ## References
 
-- Read `references/systems.md` for board fields, stack selection, and triage checklists.
+- Read `references/systems.md` for board fields, failure signatures, stack selection, and triage checklists.

@@ -43,6 +43,7 @@ When using this skill, produce:
 - ledger row
 - status
 - keep or discard rationale
+- rerun or investigate note if the result sits inside the noise band
 - rollback point
 - next question
 
@@ -60,7 +61,8 @@ Use `investigate` when:
 - the run is neither clearly good nor clearly bad
 - measurement is incomplete
 - judge disagreement or systems instability makes the result ambiguous
+- the delta is too small to beat the repeatability band confidently
 
 ## References
 
-- Read `references/ledger.md` for the default row schema, decision tests, and anti-patterns.
+- Read `references/ledger.md` for the default row schema, rerun policy, decision tests, and anti-patterns.

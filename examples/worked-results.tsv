@@ -1,0 +1,2 @@
+experiment_id	parent_commit	change_surface	primary_metric	primary_delta_vs_baseline	noise_band	guardrail_summary	peak_memory_gb	throughput	status	decision_rationale	next_question
+2026-03-12-dpo-refusal-calibration-v1	sft-helpful-v3	preference_data	refusal_calibration_pairwise_win_rate	+4.2	1.5	safety_blocker_-0.7;math_em_-0.5;length_+15pct	61.4	18.9k_tok_per_s	investigate	Primary slice improved but a hard safety blocker regressed and verbosity drift may explain part of the win.	Can a narrower pair cleanup recover the blocker slice without losing the refusal-calibration gain?

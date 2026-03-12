@@ -10,11 +10,24 @@ Use at least:
 - parent commit or checkpoint
 - change surface
 - primary metric
+- primary delta vs baseline
+- repeatability or noise band
 - guardrail summary
 - peak memory
 - throughput
 - status
 - decision rationale
+- next question
+
+## Rerun Policy
+
+Rerun or investigate before promotion when:
+
+- the primary delta sits inside the repeatability band
+- judge disagreement is still high
+- systems instability may have corrupted comparability
+- the eval suite, decoding, or prompts drifted
+- failure review has not happened yet
 
 ## Decision Tests
 
@@ -48,6 +61,16 @@ Use `investigate` when:
 - the result is ambiguous
 - judge disagreement is high
 - systems instability or contamination may have invalidated the comparison
+
+## Promotion Checklist
+
+Do not advance the baseline until all of these are true:
+
+- named baseline is still the comparison target
+- primary gain beats the repeatability band
+- hard blockers stayed acceptable
+- the result survives worst-slice review
+- the change surface is understood well enough to build on next
 
 ## Anti-Patterns
 

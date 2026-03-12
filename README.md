@@ -84,6 +84,89 @@ The most useful skills right now are:
 - `throughput-and-oom-triage`
   - fix operationally invalid runs one axis at a time
 
+## What Changes In Practice
+
+`superpowers` changes coding by making the agent follow a tighter development loop.
+
+`llm-superpowers` is trying to do the analogous thing for training work:
+
+- experiment card before scale-up
+- eval board before promotion
+- keep or discard after every serious run
+- smallest reproduction before systems tuning
+
+If the repository does not materially change behavior in the scenarios below, it still needs iteration.
+
+### Scenario 1: Starting An SFT Run
+
+Without `llm-superpowers`, a strong agent will often produce a reasonable recipe, but it tends to stay generic:
+
+- data, template, and finetuning method may change together
+- there may be no smallest meaningful delta
+- there may be no kill condition or rollback point
+- the result is advice, not an experiment artifact
+
+With `llm-superpowers`, the expected path is:
+
+- start from [programs/experiment-loop.md](programs/experiment-loop.md)
+- use `$llm-posttrain-pipeline`
+- write one experiment card with one change surface
+- define the smoke set, success bar, and kill bar before the run
+- log a keep, discard, crash, or investigate decision after the run
+
+### Scenario 2: A DPO Candidate Looks Better In Demos But Feels Wrong
+
+Without `llm-superpowers`, the common failure mode is:
+
+- chase the global mean
+- hand-wave the worst slice
+- blame “the algorithm” too early
+- propose three next experiments instead of one isolating run
+
+With `llm-superpowers`, the expected path is:
+
+- start from [programs/eval-board.md](programs/eval-board.md)
+- use `$llm-eval-loop`
+- review the worst failures first, not the best wins
+- use `$checkpoint-regression-triage` to cluster the failures
+- produce one next-run proposal grounded in a failure cluster
+
+### Scenario 3: The Run OOMs Or Throughput Collapses
+
+Without `llm-superpowers`, agents often:
+
+- change sequence length, batch, kernels, and framework together
+- debug only at full scale
+- call a throughput win “real” without a quality recheck
+- lose comparability with the baseline
+
+With `llm-superpowers`, the expected path is:
+
+- start from [programs/systems-war-room.md](programs/systems-war-room.md)
+- use `$llm-training-systems`
+- build the smallest credible reproduction
+- change one axis only
+- use `$throughput-and-oom-triage` plus a quality smoke set before accepting the fix
+
+### Scenario 4: Reproducing A Paper Or Public Repo
+
+Without `llm-superpowers`, the common pattern is:
+
+- copy the paper stack too literally
+- inherit scale assumptions blindly
+- spend too much compute before the core claim is tested
+- discover late that the paper's gains depended on ingredients you did not preserve
+
+With `llm-superpowers`, the expected path is:
+
+- start from [programs/research-to-experiment.md](programs/research-to-experiment.md)
+- use `$llm-research-to-recipe`
+- separate irreducibles from paper-specific details
+- write a cheaper approximation before a faithful large-scale reproduction
+- define kill criteria before the reproduction becomes a long-running project
+
+The repository is strongest when it turns a capable agent from “helpful and plausible” into “disciplined and comparable.”
+
 ## Quick Start
 
 1. Install the repository into your runtime.

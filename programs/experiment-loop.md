@@ -15,6 +15,7 @@ Before the first real run, create:
 
 Use:
 
+- [templates/current-best.md](templates/current-best.md)
 - [templates/results.tsv](templates/results.tsv)
 - [templates/experiment-card.md](templates/experiment-card.md)
 
@@ -46,6 +47,7 @@ Do not start the loop until all of these are explicit:
    - Use `$llm-eval-loop` to compare the candidate against the baseline.
 6. Review failure evidence.
    - Inspect worst regressions, not only averages.
+   - Review at least 20 worst failures overall, and more if one critical slice is small.
    - Save representative failures into `runboard/failures/`.
 7. Make a keep or discard decision.
    - Use `$run-ledger-and-keep-discard`.
@@ -61,6 +63,7 @@ Do not start the loop until all of these are explicit:
 - one change surface unless explicitly testing a bundled recipe
 - no silent benchmark drift
 - no keep decision without failure review
+- no scale-up from a delta that still sits inside the repeatability band
 - no algorithm conclusion from a run invalidated by systems instability
 - no data conclusion from a run contaminated by eval overlap
 

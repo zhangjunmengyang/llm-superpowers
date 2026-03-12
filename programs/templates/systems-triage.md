@@ -24,3 +24,7 @@
 ## Quality Guard
 
 How we know the systems fix did not corrupt the experiment.
+
+## Stop Rule
+
+When to stop turning knobs and reclassify the problem.

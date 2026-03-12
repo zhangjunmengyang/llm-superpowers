@@ -48,7 +48,8 @@ When using this skill, produce:
 - next one-axis intervention
 - rollback point
 - comparability guard
+- stop rule if repeated interventions do not move the board
 
 ## References
 
-- Read `references/triage.md` for board fields and first-response heuristics.
+- Read `references/triage.md` for board fields, failure signatures, and first-response heuristics.

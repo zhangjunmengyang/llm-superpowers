@@ -41,10 +41,11 @@ When using this skill, produce:
 
 - worst slices
 - sampled failures
+- dominant failure cluster
 - likely root-cause layer
 - confidence level
 - one next-run proposal
 
 ## References
 
-- Read `references/review.md` for failure clustering, severity, and next-run heuristics.
+- Read `references/review.md` for failure clustering, review coverage, severity, and next-run heuristics.

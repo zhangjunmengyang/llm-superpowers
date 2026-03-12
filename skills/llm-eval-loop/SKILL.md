@@ -36,6 +36,7 @@ When using this skill, return:
 
 - baseline and candidate
 - frozen measurement setup
+- repeatability or confidence note
 - hard blocker metrics
 - watchlist metrics
 - failure slices
@@ -60,4 +61,4 @@ When using this skill, return:
 
 ## References
 
-- Read `references/benchmarks.md` for board design, harness choices, and failure review rules.
+- Read `references/benchmarks.md` for board design, default review coverage, gate heuristics, and failure review rules.

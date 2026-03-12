@@ -34,6 +34,7 @@ Programs use concrete artifacts, not vibes.
 
 Start from:
 
+- [templates/current-best.md](templates/current-best.md)
 - [templates/experiment-card.md](templates/experiment-card.md)
 - [templates/results.tsv](templates/results.tsv)
 - [templates/eval-board.md](templates/eval-board.md)

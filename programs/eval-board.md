@@ -33,6 +33,7 @@ The board should have five sections only:
    - watchlist
    - diagnostic-only
 4. Use `$checkpoint-regression-triage` on the worst slices and sampled failures.
+   - Review at least 20 worst failures overall and 5 to 10 per critical slice.
 5. Record the final board decision:
    - ship
    - hold
@@ -56,6 +57,7 @@ Every serious board should include:
 - do not trust a single judge model as final truth
 - do not sign off from averages only
 - do not hide bad slices behind a better global mean
+- do not promote a candidate whose delta still sits inside the repeatability band
 
 ## Output
 

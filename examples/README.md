@@ -25,6 +25,21 @@ Each example shows:
 - [paper-to-recipe.md](paper-to-recipe.md)
   - for turning papers and public repos into runnable experiment plans
 
+## Worked Artifacts
+
+These are filled examples, not starter prompts.
+
+- [worked-experiment-card.md](worked-experiment-card.md)
+  - a concrete experiment card with success and kill bars
+- [worked-eval-board.md](worked-eval-board.md)
+  - a candidate-vs-baseline board with a real hold decision
+- [worked-results.tsv](worked-results.tsv)
+  - a ledger row that matches the repository template
+- [worked-systems-triage.md](worked-systems-triage.md)
+  - a measured OOM recovery board
+- [worked-reproduction-plan.md](worked-reproduction-plan.md)
+  - a paper-to-experiment plan with irreducibles and kill criteria
+
 ## How To Use These
 
 1. Pick the example closest to your situation.
@@ -32,6 +47,8 @@ Each example shows:
 3. Copy the starter prompt into your coding-agent runtime.
 4. Adjust the model, dataset, and target behavior.
 5. Keep one lead skill and one artifact contract.
+
+If you want to see what good output should look like, start from the worked artifacts first and only then use the starter prompts.
 
 ## Coverage
 

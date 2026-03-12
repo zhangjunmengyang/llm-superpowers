@@ -18,7 +18,8 @@ One sentence only.
 ## Success Condition
 
 - primary metric
-- minimum expected gain
+- smallest meaningful delta vs baseline
+- repeatability band or confidence note
 - guardrail metrics that must not regress materially
 
 ## Kill Condition
@@ -31,6 +32,11 @@ One sentence only.
 - compute budget
 - max acceptable memory
 - expected runtime
+
+## Smoke Set
+
+- fixed prompts or tasks to rerun after systems changes
+- fastest check that tells us whether quality drifted
 
 ## Non-Goals
 

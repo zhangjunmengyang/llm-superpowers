@@ -84,6 +84,89 @@ Sequence 由 programs 负责。
 - `throughput-and-oom-triage`
   - 一次只改一个轴地修复失效运行
 
+## 它到底改变什么
+
+`superpowers` 之所以有力量，是因为它会把 coding agent 拉进一条更紧的开发闭环。
+
+`llm-superpowers` 想做的是训练侧的对应物：
+
+- scale-up 之前先写 experiment card
+- promotion 之前先过 eval board
+- 每一轮严肃实验后都要 keep / discard
+- systems 调参前先做最小可复现
+
+如果这套仓库在下面这些场景里不能明显改变 agent 的行为，那它就还不够好，还得继续迭代。
+
+### 场景 1：启动一轮 SFT
+
+如果没有 `llm-superpowers`，一个强 agent 往往也能给出看起来合理的 recipe，但常见结果是：
+
+- data、template、finetuning method 一起改
+- 没有 smallest meaningful delta
+- 没有 kill condition 和 rollback point
+- 最终给的是建议，不是可执行工件
+
+如果用了 `llm-superpowers`，期望路径应该是：
+
+- 从 [programs/experiment-loop.md](programs/experiment-loop.md) 开始
+- 调 `$llm-posttrain-pipeline`
+- 先写一张只有一个 change surface 的 experiment card
+- 在开跑前就定义 smoke set、success bar 和 kill bar
+- 跑完以后明确记录 keep / discard / crash / investigate
+
+### 场景 2：一轮 DPO demo 看起来更好，但总觉得不对
+
+如果没有 `llm-superpowers`，常见失败方式是：
+
+- 只追全局均值
+- 最坏切片被一笔带过
+- 太早把问题归因给“算法不行”
+- 一次给出三个下一轮实验，而不是一个 isolating run
+
+如果用了 `llm-superpowers`，期望路径应该是：
+
+- 从 [programs/eval-board.md](programs/eval-board.md) 开始
+- 调 `$llm-eval-loop`
+- 先看 worst failures，不先看 best wins
+- 再用 `$checkpoint-regression-triage` 做 failure clustering
+- 最后给出一个被失败簇约束过的下一轮实验
+
+### 场景 3：训练 OOM 或吞吐崩掉
+
+如果没有 `llm-superpowers`，agent 很容易：
+
+- sequence、batch、kernel、framework 一起改
+- 只在 full scale 上瞎调
+- 看到 throughput 变好就宣布成功
+- 最后把 comparability 也调没了
+
+如果用了 `llm-superpowers`，期望路径应该是：
+
+- 从 [programs/systems-war-room.md](programs/systems-war-room.md) 开始
+- 调 `$llm-training-systems`
+- 先做 smallest credible reproduction
+- 每次只改一个轴
+- 只有 `$throughput-and-oom-triage` 和质量 smoke set 都过了，才接受这个 fix
+
+### 场景 4：复现一篇 paper 或公开 repo
+
+如果没有 `llm-superpowers`，常见模式是：
+
+- 过度照抄 paper stack
+- 盲目继承 scale assumptions
+- 在核心 claim 还没被验证前就花了太多算力
+- 到很后面才发现真正起作用的 ingredient 根本没保住
+
+如果用了 `llm-superpowers`，期望路径应该是：
+
+- 从 [programs/research-to-experiment.md](programs/research-to-experiment.md) 开始
+- 调 `$llm-research-to-recipe`
+- 先把 irreducibles 和 paper-specific 细节分开
+- 先写 cheaper approximation，再谈 faithful 大复现
+- 在项目变成长跑之前，先写 kill criteria
+
+这套仓库最强的时候，不是让一个 agent 变得“更会说”，而是让它从“听起来合理”变成“过程严谨、结果可比、可以连续自循环实验”。
+
 ## 快速开始
 
 1. 先把仓库安装进你的 runtime。
