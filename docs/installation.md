@@ -10,6 +10,65 @@ The install story combines three patterns that already work well in public skill
 - one-command shell install for direct users
 - universal repo install through OpenSkills
 
+## Install By Runtime
+
+### Claude Code
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code --profile starter
+```
+
+Project-local install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code-project --profile starter
+```
+
+### Codex
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime codex --profile starter
+```
+
+Bootstrap file:
+
+- [../.codex/INSTALL.md](../.codex/INSTALL.md)
+
+### OpenCode
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode --profile starter
+```
+
+Project-local install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode-project --profile starter
+```
+
+### OpenClaw
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime openclaw --profile starter
+```
+
+### OpenSkills-Compatible Agents
+
+```bash
+npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
+npx -y openskills sync
+```
+
+See [runtime-matrix.md](runtime-matrix.md) for the compact compatibility table.
+
 ## One-Command Install
 
 For runtimes with a preset:
@@ -107,7 +166,12 @@ If you do not yet have runtime integration, you can still use the repository in 
 
 The installer supports:
 
+- `--runtime claude-code`
+- `--runtime claude-code-project`
 - `--runtime codex`
+- `--runtime opencode`
+- `--runtime opencode-project`
+- `--runtime openclaw`
 - `--target-dir <path>`
 - `--profile starter`
 - `--profile all`
@@ -119,7 +183,10 @@ The installer supports:
 
 ## Installation Modes By Use Case
 
+- use `./scripts/install.sh --runtime claude-code --profile starter` for a personal Claude Code install
 - use `./scripts/install.sh --runtime codex --profile starter` when you want the fastest Codex setup
+- use `./scripts/install.sh --runtime opencode --profile starter` for a personal OpenCode install
+- use `./scripts/install.sh --runtime openclaw --profile starter` for a personal OpenClaw install
 - use `./scripts/install.sh --target-dir <path> --profile all` when another runtime has a known skill directory
 - use `npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git` when you want a cross-tool repo installer
 
@@ -152,11 +219,10 @@ Specialist modules:
 - `eval-and-regression-gates`
 - `training-systems-debug`
 
-## Future
+## Next Additions
 
-Installation guides for specific runtimes should be added later:
+The next install-layer improvements worth adding are:
 
-- Codex
-- Claude-compatible skill runtimes
-- Cursor-compatible loaders
-- other OpenSkills-style environments
+- more native runtime presets once their skill directories are stable
+- a compatibility table for AGENTS-based editors beyond OpenSkills
+- optional package-manager wrappers for teams that want pinned internal installs

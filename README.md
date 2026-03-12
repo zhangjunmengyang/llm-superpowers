@@ -48,60 +48,78 @@ Typical users:
 - training systems engineers
 - research engineers translating papers into production experiments
 
-## Quick Start
+## Install By Runtime
 
-If you just landed on this repository, use this path:
+Use the command that matches your agent.
 
-1. Install the pack with one command.
+### Claude Code
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code --profile starter
+```
+
+Project-local install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code-project --profile starter
+```
+
+### Codex
+
+Global install:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime codex --profile starter
 ```
 
-2. If you use OpenSkills or want a more universal cross-tool path:
-
-```bash
-npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
-```
-
-3. If you want a `superpowers`-style Codex bootstrap, tell Codex to fetch:
+Or tell Codex to fetch:
 
 ```text
 https://github.com/zhangjunmengyang/llm-superpowers/blob/main/.codex/INSTALL.md
 ```
 
-4. Read [docs/installation.md](docs/installation.md).
-5. Start with one umbrella skill:
-   - `llm-posttrain-pipeline` for general recipe planning
-   - `llm-reasoning-posttrain` for reasoning-specific work
-   - `llm-eval-loop` for checkpoint comparison
-   - `llm-training-systems` for systems bottlenecks
-6. Pull in one specialist module only after the lead skill has framed the task.
-7. Use the examples in [examples/README.md](examples/README.md) to copy a starting prompt and output shape.
-8. If your runtime does not support skill discovery yet, use the prompt-only fallback in [docs/runtime-patterns.md](docs/runtime-patterns.md).
+### OpenCode
 
-If you prefer to clone first:
+Global install:
 
 ```bash
-git clone https://github.com/zhangjunmengyang/llm-superpowers.git
-cd llm-superpowers
-./scripts/install.sh --runtime codex --profile starter
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode --profile starter
 ```
 
-If your tool does not have a preset yet, install to any directory:
+Project-local install:
 
 ```bash
-./scripts/install.sh --target-dir /path/to/your/runtime/skills --profile all
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode-project --profile starter
 ```
 
-If your tool already works with OpenSkills, use:
+### OpenClaw
+
+Global install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime openclaw --profile starter
+```
+
+### OpenSkills-Compatible Agents
+
+For OpenSkills-compatible environments such as shared AGENTS-based setups:
 
 ```bash
 npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
 npx -y openskills sync
 ```
 
-Then follow this path:
+### Any Other Runtime
+
+If your tool has a known skill directory but no preset:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --target-dir /path/to/your/runtime/skills --profile all
+```
+
+After installation:
 
 1. Read [docs/installation.md](docs/installation.md).
 2. Start with one umbrella skill:
@@ -134,6 +152,10 @@ This repository now supports three open-source distribution styles:
 - universal repo install via OpenSkills
 
 That combination makes the pack usable both for native Codex workflows and for broader cross-tool skill loaders.
+
+## Runtime Matrix
+
+See [docs/runtime-matrix.md](docs/runtime-matrix.md) for per-agent commands, target directories, and notes.
 
 ## Top-Level Design
 
@@ -250,6 +272,7 @@ llm-superpowers/
 │   ├── first-session.md
 │   ├── module-map.md
 │   ├── installation.md
+│   ├── runtime-matrix.md
 │   └── runtime-patterns.md
 ├── examples/
 │   ├── README.md

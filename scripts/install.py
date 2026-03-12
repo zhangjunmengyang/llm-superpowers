@@ -21,6 +21,15 @@ STARTER_PROFILE = [
     "training-systems-debug",
 ]
 
+RUNTIME_DIRS = {
+    "claude-code": lambda: Path.home() / ".claude" / "skills",
+    "claude-code-project": lambda: Path.cwd() / ".claude" / "skills",
+    "codex": lambda: Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "skills",
+    "opencode": lambda: Path.home() / ".config" / "opencode" / "skills",
+    "opencode-project": lambda: Path.cwd() / ".opencode" / "skills",
+    "openclaw": lambda: Path.home() / ".openclaw" / "workspace" / "skills",
+}
+
 
 def find_skill_dirs() -> dict[str, Path]:
     skills: dict[str, Path] = {}
@@ -33,9 +42,8 @@ def find_skill_dirs() -> dict[str, Path]:
 def resolve_runtime_dir(runtime: str | None) -> Path | None:
     if runtime is None:
         return None
-    if runtime == "codex":
-        codex_home = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex")))
-        return codex_home / "skills"
+    if runtime in RUNTIME_DIRS:
+        return RUNTIME_DIRS[runtime]()
     raise ValueError(f"unsupported runtime preset: {runtime}")
 
 
@@ -45,7 +53,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--runtime",
-        choices=["codex"],
+        choices=sorted(RUNTIME_DIRS),
         help="Known runtime preset. Use --target-dir for any other tool.",
     )
     parser.add_argument(
@@ -109,7 +117,11 @@ def ensure_target_dir(args: argparse.Namespace) -> Path:
 
     target_dir = args.target_dir or resolve_runtime_dir(args.runtime)
     if target_dir is None:
-        raise SystemExit("choose --runtime codex or pass --target-dir")
+        raise SystemExit(
+            "choose --runtime "
+            + "|".join(sorted(RUNTIME_DIRS))
+            + " or pass --target-dir"
+        )
     return target_dir.expanduser().resolve()
 
 

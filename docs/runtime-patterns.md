@@ -19,6 +19,7 @@ If a runtime can discover folders that follow that contract, it can usually cons
 
 If you want a single install command instead of manual setup, use [../scripts/install.sh](../scripts/install.sh).
 If your environment supports OpenSkills, use `npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git`.
+If you just want the runtime-specific commands, see [runtime-matrix.md](runtime-matrix.md).
 
 ### 1. Direct Folder Discovery
 
@@ -37,6 +38,7 @@ This is the cleanest option because:
 - skill boundaries stay visible
 
 If the runtime already exposes a stable local skill directory, the installer can target it directly with a preset such as `--runtime codex`.
+The current presets are `claude-code`, `claude-code-project`, `codex`, `opencode`, `opencode-project`, and `openclaw`.
 
 ### 2. Selective Symlink Install
 
