@@ -1,0 +1,4 @@
+interface:
+  display_name: "Eval Regression Gates"
+  short_description: "Design evaluation and regression gates"
+  default_prompt: "Use $eval-and-regression-gates to define release and regression gates for this model or checkpoint."

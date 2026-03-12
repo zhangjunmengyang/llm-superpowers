@@ -121,6 +121,8 @@ These are the first V1 modules that sharpen the broad umbrella skills.
 | `online-rl-posttraining` | design rollout-based RL recipes | `llm-posttrain-pipeline` |
 | `reasoning-prm-verifier` | build process supervision for reasoning | `llm-reasoning-posttrain` |
 | `data-curation-and-filtering` | curate and filter training data | `llm-synthetic-data` |
+| `eval-and-regression-gates` | turn evaluation into release or rollback decisions | `llm-eval-loop` |
+| `training-systems-debug` | diagnose concrete systems failures safely | `llm-training-systems` |
 
 ## Work Scenarios
 
@@ -139,6 +141,7 @@ Detailed scenario mapping lives in:
 - [docs/default-workflows.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/default-workflows.md)
 - [docs/design-principles.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/design-principles.md)
 - [docs/module-map.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/module-map.md)
+- [docs/installation.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/installation.md)
 
 ## Repository Layout
 
@@ -149,9 +152,11 @@ llm-superpowers/
 │   ├── design-principles.md
 │   ├── work-scenarios.md
 │   ├── default-workflows.md
-│   └── module-map.md
+│   ├── module-map.md
+│   └── installation.md
 └── skills/
     ├── data-curation-and-filtering/
+    ├── eval-and-regression-gates/
     ├── llm-posttrain-pipeline/
     ├── llm-synthetic-data/
     ├── llm-reasoning-posttrain/
@@ -162,7 +167,8 @@ llm-superpowers/
     ├── preference-optimization/
     ├── reasoning-prm-verifier/
     ├── reward-modeling/
-    └── sft-recipe-design/
+    ├── sft-recipe-design/
+    └── training-systems-debug/
 ```
 
 Each skill contains:
@@ -249,8 +255,6 @@ Make the pack production-grade as a standalone repo:
 
 The next skills worth adding are:
 
-- `eval-and-regression-gates`
-- `training-systems-debug`
 - `long-context-posttraining`
 - `distillation-and-merging`
 - `data-mixture-design`
@@ -268,3 +272,11 @@ The next skills worth adding are:
 This is an early but real starting point.
 
 The next quality jump is not “more categories.” It is sharper boundaries, stronger scenario coverage, and better workflow composition between the skills that already exist.
+
+## Open Source Basics
+
+This repository now includes:
+
+- [LICENSE](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/LICENSE)
+- [CONTRIBUTING.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/CONTRIBUTING.md)
+- [docs/installation.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/installation.md)

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Training Systems Debug"
+  short_description: "Debug training systems and scaling failures"
+  default_prompt: "Use $training-systems-debug to diagnose this training systems failure and design a safe debug plan."
