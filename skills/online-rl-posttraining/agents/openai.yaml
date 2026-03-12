@@ -1,0 +1,4 @@
+interface:
+  display_name: "Online RL Posttraining"
+  short_description: "Design online RL post-training recipes"
+  default_prompt: "Use $online-rl-posttraining to decide whether online RL is needed and design the recipe if it is."

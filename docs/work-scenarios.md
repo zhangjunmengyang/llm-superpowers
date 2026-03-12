@@ -6,16 +6,16 @@ This document maps common LLM algorithm-engineering situations to the right lead
 
 | Scenario | Lead skill | Support skills | Expected output |
 | --- | --- | --- | --- |
-| New domain adaptation plan | `llm-posttrain-pipeline` | `llm-synthetic-data`, `llm-eval-loop` | stage choice, recipe, metrics |
-| DPO or RL decision for an existing model | `llm-posttrain-pipeline` | `llm-eval-loop` | algorithm choice and scale-up path |
-| Building a preference dataset | `llm-synthetic-data` | `llm-posttrain-pipeline` | schema, generation path, filters |
-| Building reasoning traces or PRM labels | `llm-reasoning-posttrain` | `llm-synthetic-data`, `llm-eval-loop` | trace schema, reward or verifier plan |
-| Reproducing an R1-style or reasoning paper | `llm-research-to-recipe` | `llm-reasoning-posttrain`, `llm-posttrain-pipeline` | faithful recipe and cheaper approximation |
+| New domain adaptation plan | `llm-posttrain-pipeline` | `sft-recipe-design`, `llm-eval-loop` | stage choice, recipe, metrics |
+| DPO or RL decision for an existing model | `llm-posttrain-pipeline` | `preference-optimization`, `reward-modeling`, `online-rl-posttraining` | algorithm choice and scale-up path |
+| Building a preference dataset | `llm-synthetic-data` | `data-curation-and-filtering`, `preference-optimization` | schema, generation path, filters |
+| Building reasoning traces or PRM labels | `llm-reasoning-posttrain` | `reasoning-prm-verifier`, `llm-synthetic-data`, `llm-eval-loop` | trace schema, reward or verifier plan |
+| Reproducing an R1-style or reasoning paper | `llm-research-to-recipe` | `llm-reasoning-posttrain`, `reasoning-prm-verifier`, `llm-posttrain-pipeline` | faithful recipe and cheaper approximation |
 | Comparing several checkpoints | `llm-eval-loop` | `llm-posttrain-pipeline` | benchmark plan, pass or fail criteria |
-| Safety regression after alignment | `llm-eval-loop` | `llm-posttrain-pipeline`, `llm-synthetic-data` | regression diagnosis and next experiment |
+| Safety regression after alignment | `llm-eval-loop` | `llm-posttrain-pipeline`, `preference-optimization`, `reward-modeling` | regression diagnosis and next experiment |
 | OOM, divergence, or throughput collapse | `llm-training-systems` | `llm-eval-loop` | bottleneck hypothesis and fix sequence |
-| Scaling a proof-of-life experiment | `llm-training-systems` | `llm-posttrain-pipeline` | systems plan and rollback-safe scaling path |
-| Turning a new paper into an internal experiment | `llm-research-to-recipe` | `llm-posttrain-pipeline`, `llm-eval-loop` | runnable recipe and validation plan |
+| Scaling a proof-of-life experiment | `llm-training-systems` | `llm-posttrain-pipeline`, `sft-recipe-design` or `online-rl-posttraining` | systems plan and rollback-safe scaling path |
+| Turning a new paper into an internal experiment | `llm-research-to-recipe` | `llm-posttrain-pipeline`, one specialist module, `llm-eval-loop` | runnable recipe and validation plan |
 
 ## Scenario Notes
 
@@ -40,6 +40,11 @@ Typical asks:
 - what should the reward-model dataset look like
 - how should we structure synthetic reasoning traces
 
+Then bring in:
+
+- `data-curation-and-filtering` when the hard part is filtering, dedup, or contamination
+- `preference-optimization` when pair quality becomes the main question
+
 ### 3. Improving Reasoning
 
 Use `llm-reasoning-posttrain` first when the target is reasoning correctness, step quality, verifier design, or R1-style improvement.
@@ -49,6 +54,11 @@ Typical asks:
 - do we need PRM or verifier supervision
 - should we use best-of-n or RL
 - what does the reasoning trace schema need to look like
+
+Then bring in:
+
+- `reasoning-prm-verifier` for PRM vs verifier decisions
+- `online-rl-posttraining` when the reasoning loop crosses into rollouts
 
 ### 4. Deciding If A Change Worked
 
@@ -80,3 +90,13 @@ Typical asks:
 - what is the real contribution here
 - what is required for a faithful reproduction
 - what is the cheaper approximation we can run this week
+
+Then hand off to:
+
+- `sft-recipe-design`
+- `preference-optimization`
+- `reward-modeling`
+- `online-rl-posttraining`
+- `reasoning-prm-verifier`
+
+depending on what the extracted recipe actually contains.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Data Curation Filtering"
+  short_description: "Curate, filter, and score training data"
+  default_prompt: "Use $data-curation-and-filtering to design a filtering and mixture plan for this training dataset."

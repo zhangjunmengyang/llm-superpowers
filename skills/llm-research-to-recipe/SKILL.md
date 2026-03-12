@@ -38,6 +38,7 @@ Use this skill to stop papers from remaining PDFs and turn them into engineering
 ## Typical Hand-Offs
 
 - to `llm-posttrain-pipeline` for experiment planning
+- to `sft-recipe-design`, `preference-optimization`, `reward-modeling`, or `online-rl-posttraining` once the recipe family is clear
 - to `llm-eval-loop` for reproduction validation
 - to `llm-training-systems` if the reproduced recipe is operationally expensive
 

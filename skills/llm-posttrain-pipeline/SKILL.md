@@ -51,6 +51,10 @@ Use this skill to turn a vague post-training request into a concrete algorithm a
 
 ## Typical Hand-Offs
 
+- to `sft-recipe-design` for supervised finetuning design
+- to `preference-optimization` for offline preference methods
+- to `reward-modeling` for reusable reward signals
+- to `online-rl-posttraining` once rollout-based optimization is justified
 - to `llm-synthetic-data` for schema and data construction
 - to `llm-reasoning-posttrain` for reasoning-specific recipes
 - to `llm-eval-loop` for acceptance gates

@@ -126,3 +126,20 @@ It should not mostly be:
 - adding more topic names
 - chasing every new benchmark
 - mixing product engineering and training engineering
+
+## Umbrellas vs Specialists
+
+The repository now has two kinds of skills.
+
+Umbrellas:
+
+- lead a broad mode of work
+- own stage choice, composition, and hand-offs
+
+Specialists:
+
+- go deeper into one algorithmic subproblem
+- should usually be invoked after an umbrella has framed the task
+
+The repository gets better when specialists become sharper.
+It gets worse when umbrellas and specialists drift into each other.

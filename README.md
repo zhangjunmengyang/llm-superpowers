@@ -70,6 +70,15 @@ The repo is organized around those modes.
 - Systems skills
   - diagnose memory, throughput, stability, and serving bottlenecks
 
+### Two-Layer Architecture
+
+- umbrella skills
+  - broad work-mode leaders
+  - decide direction, stage, and composition
+- specialist modules
+  - narrower algorithm modules
+  - make one part of the recipe concrete
+
 ### Composition Model
 
 Use one lead skill and, at most, one or two support skills.
@@ -100,6 +109,19 @@ Examples:
 | `llm-training-systems` | Debug scale, memory, throughput, and stability | the blocker is systems behavior rather than algorithm choice | `llm-eval-loop` |
 | `llm-research-to-recipe` | Turn papers and repos into runnable engineering recipes | you need to extract the real recipe from research | `llm-posttrain-pipeline`, `llm-training-systems` |
 
+## Specialist Modules
+
+These are the first V1 modules that sharpen the broad umbrella skills.
+
+| Module | Primary job | Typical umbrella lead |
+| --- | --- | --- |
+| `sft-recipe-design` | design strong SFT recipes | `llm-posttrain-pipeline` |
+| `preference-optimization` | choose and design offline preference methods | `llm-posttrain-pipeline` |
+| `reward-modeling` | build and validate reward signals | `llm-posttrain-pipeline` |
+| `online-rl-posttraining` | design rollout-based RL recipes | `llm-posttrain-pipeline` |
+| `reasoning-prm-verifier` | build process supervision for reasoning | `llm-reasoning-posttrain` |
+| `data-curation-and-filtering` | curate and filter training data | `llm-synthetic-data` |
+
 ## Work Scenarios
 
 Common scenarios this repo is designed for:
@@ -116,6 +138,7 @@ Detailed scenario mapping lives in:
 - [docs/work-scenarios.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/work-scenarios.md)
 - [docs/default-workflows.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/default-workflows.md)
 - [docs/design-principles.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/design-principles.md)
+- [docs/module-map.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/module-map.md)
 
 ## Repository Layout
 
@@ -125,14 +148,21 @@ llm-superpowers/
 ├── docs/
 │   ├── design-principles.md
 │   ├── work-scenarios.md
-│   └── default-workflows.md
+│   ├── default-workflows.md
+│   └── module-map.md
 └── skills/
+    ├── data-curation-and-filtering/
     ├── llm-posttrain-pipeline/
     ├── llm-synthetic-data/
     ├── llm-reasoning-posttrain/
     ├── llm-eval-loop/
     ├── llm-training-systems/
-    └── llm-research-to-recipe/
+    ├── llm-research-to-recipe/
+    ├── online-rl-posttraining/
+    ├── preference-optimization/
+    ├── reasoning-prm-verifier/
+    ├── reward-modeling/
+    └── sft-recipe-design/
 ```
 
 Each skill contains:
@@ -181,7 +211,7 @@ Build the minimum useful core:
 
 ### V1
 
-Split the current broad skills into sharper algorithm modules:
+Add and refine sharper algorithm modules:
 
 - `sft-recipe-design`
 - `preference-optimization`
@@ -219,14 +249,12 @@ Make the pack production-grade as a standalone repo:
 
 The next skills worth adding are:
 
-- `sft-recipe-design`
-- `preference-optimization`
-- `reward-modeling`
-- `online-rl-posttraining`
-- `reasoning-prm-verifier`
-- `data-curation-and-filtering`
+- `eval-and-regression-gates`
+- `training-systems-debug`
 - `long-context-posttraining`
 - `distillation-and-merging`
+- `data-mixture-design`
+- `judge-and-reward-shaping`
 
 ## Non-Goals
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SFT Recipe Design"
+  short_description: "Design strong supervised finetuning recipes"
+  default_prompt: "Use $sft-recipe-design to design or review an SFT recipe for this model and target behavior."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reward Modeling"
+  short_description: "Design reward models and reward datasets"
+  default_prompt: "Use $reward-modeling to design a reward model, reward dataset, and validation plan."

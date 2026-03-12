@@ -7,9 +7,10 @@ This document shows how the skills should compose in realistic algorithm-enginee
 Use when a team has a base model and a target behavior but no settled recipe.
 
 1. `llm-posttrain-pipeline`
-2. `llm-synthetic-data`
-3. `llm-eval-loop`
-4. `llm-training-systems` if scaling becomes the bottleneck
+2. `sft-recipe-design` or `preference-optimization`
+3. `llm-synthetic-data` or `data-curation-and-filtering`
+4. `llm-eval-loop`
+5. `llm-training-systems` if scaling becomes the bottleneck
 
 Expected outputs:
 
@@ -23,9 +24,10 @@ Expected outputs:
 Use when the model needs stronger math, code, or multi-step reasoning.
 
 1. `llm-reasoning-posttrain`
-2. `llm-synthetic-data`
-3. `llm-eval-loop`
-4. `llm-training-systems` if the RL or verifier loop becomes expensive
+2. `reasoning-prm-verifier`
+3. `llm-synthetic-data` or `data-curation-and-filtering`
+4. `llm-eval-loop`
+5. `llm-training-systems` if the RL or verifier loop becomes expensive
 
 Expected outputs:
 
@@ -40,8 +42,9 @@ Use when the starting point is a paper or public repo.
 
 1. `llm-research-to-recipe`
 2. `llm-posttrain-pipeline`
-3. `llm-eval-loop`
-4. `llm-training-systems` if the reproduction must scale
+3. one specialist module such as `sft-recipe-design`, `preference-optimization`, or `reward-modeling`
+4. `llm-eval-loop`
+5. `llm-training-systems` if the reproduction must scale
 
 Expected outputs:
 
@@ -56,7 +59,7 @@ Use when a new checkpoint looks better in demos but something feels off.
 
 1. `llm-eval-loop`
 2. `llm-posttrain-pipeline`
-3. `llm-synthetic-data` or `llm-reasoning-posttrain`
+3. `llm-synthetic-data`, `reasoning-prm-verifier`, or `preference-optimization`
 
 Expected outputs:
 

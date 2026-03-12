@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reasoning PRM Verifier"
+  short_description: "Build PRM and verifier reasoning loops"
+  default_prompt: "Use $reasoning-prm-verifier to choose and design a PRM or verifier loop for reasoning improvement."

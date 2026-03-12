@@ -50,6 +50,9 @@ Use this skill to design the cheapest high-signal dataset that matches the targe
 ## Typical Hand-Offs
 
 - to `llm-posttrain-pipeline` for recipe selection
+- to `data-curation-and-filtering` for filtering, dedup, and contamination control
+- to `sft-recipe-design` when SFT format and supervision choices dominate
+- to `preference-optimization` when pair quality becomes the main issue
 - to `llm-reasoning-posttrain` for reasoning-specific trace design
 - to `llm-eval-loop` for contamination-aware validation
 

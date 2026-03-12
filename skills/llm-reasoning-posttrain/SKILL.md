@@ -50,8 +50,10 @@ Use this skill when the task is not generic alignment but reasoning quality: ste
 
 ## Typical Hand-Offs
 
+- to `reasoning-prm-verifier` for process supervision primitives
 - to `llm-synthetic-data` for trace and label construction
 - to `llm-eval-loop` for reasoning-specific correctness checks
+- to `online-rl-posttraining` when reasoning improvement crosses into rollout optimization
 - to `llm-training-systems` when verifier or RL loops become the bottleneck
 
 ## Output Shape
