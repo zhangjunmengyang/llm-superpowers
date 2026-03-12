@@ -52,6 +52,57 @@ Typical users:
 
 If you just landed on this repository, use this path:
 
+1. Install the pack with one command.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime codex --profile starter
+```
+
+2. If you use OpenSkills or want a more universal cross-tool path:
+
+```bash
+npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
+```
+
+3. If you want a `superpowers`-style Codex bootstrap, tell Codex to fetch:
+
+```text
+https://github.com/zhangjunmengyang/llm-superpowers/blob/main/.codex/INSTALL.md
+```
+
+4. Read [docs/installation.md](docs/installation.md).
+5. Start with one umbrella skill:
+   - `llm-posttrain-pipeline` for general recipe planning
+   - `llm-reasoning-posttrain` for reasoning-specific work
+   - `llm-eval-loop` for checkpoint comparison
+   - `llm-training-systems` for systems bottlenecks
+6. Pull in one specialist module only after the lead skill has framed the task.
+7. Use the examples in [examples/README.md](examples/README.md) to copy a starting prompt and output shape.
+8. If your runtime does not support skill discovery yet, use the prompt-only fallback in [docs/runtime-patterns.md](docs/runtime-patterns.md).
+
+If you prefer to clone first:
+
+```bash
+git clone https://github.com/zhangjunmengyang/llm-superpowers.git
+cd llm-superpowers
+./scripts/install.sh --runtime codex --profile starter
+```
+
+If your tool does not have a preset yet, install to any directory:
+
+```bash
+./scripts/install.sh --target-dir /path/to/your/runtime/skills --profile all
+```
+
+If your tool already works with OpenSkills, use:
+
+```bash
+npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
+npx -y openskills sync
+```
+
+Then follow this path:
+
 1. Read [docs/installation.md](docs/installation.md).
 2. Start with one umbrella skill:
    - `llm-posttrain-pipeline` for general recipe planning
@@ -73,6 +124,16 @@ For a stronger first session, use:
 - [docs/first-session.md](docs/first-session.md)
 - [docs/runtime-patterns.md](docs/runtime-patterns.md)
 - [examples/README.md](examples/README.md)
+
+## Distribution Model
+
+This repository now supports three open-source distribution styles:
+
+- `superpowers`-style bootstrap via [.codex/INSTALL.md](.codex/INSTALL.md)
+- direct one-command install via [scripts/install.sh](scripts/install.sh)
+- universal repo install via OpenSkills
+
+That combination makes the pack usable both for native Codex workflows and for broader cross-tool skill loaders.
 
 ## Top-Level Design
 
@@ -177,6 +238,11 @@ Detailed scenario mapping lives in:
 ```text
 llm-superpowers/
 ├── README.md
+├── .codex/
+│   └── INSTALL.md
+├── scripts/
+│   ├── install.py
+│   └── install.sh
 ├── docs/
 │   ├── design-principles.md
 │   ├── work-scenarios.md

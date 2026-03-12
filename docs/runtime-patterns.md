@@ -17,6 +17,9 @@ If a runtime can discover folders that follow that contract, it can usually cons
 
 ## Recommended Integration Patterns
 
+If you want a single install command instead of manual setup, use [../scripts/install.sh](../scripts/install.sh).
+If your environment supports OpenSkills, use `npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git`.
+
 ### 1. Direct Folder Discovery
 
 Use this when your runtime can read skills from any local directory.
@@ -32,6 +35,8 @@ This is the cleanest option because:
 - upstream updates stay intact
 - no files need to be copied
 - skill boundaries stay visible
+
+If the runtime already exposes a stable local skill directory, the installer can target it directly with a preset such as `--runtime codex`.
 
 ### 2. Selective Symlink Install
 
@@ -54,6 +59,12 @@ Why this is usually better than copying:
 - local customizations are explicit
 - the repository stays the single source of truth
 
+The installer can do this for you:
+
+```bash
+./scripts/install.sh --target-dir /path/to/runtime/skills --profile starter --mode symlink
+```
+
 ### 3. Vendored Internal Dependency
 
 Use this when a team wants to consume the pack from an internal monorepo.
@@ -69,6 +80,23 @@ This is the right pattern when:
 - reproducibility matters
 - multiple engineers should share the same skill revision
 - internal wrappers or governance need a frozen dependency
+
+### 3.5. Universal Repo Installer
+
+Use this when your environment already supports OpenSkills-style distribution.
+
+Install with:
+
+```bash
+npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
+npx -y openskills sync
+```
+
+This works well when:
+
+- the runtime reads `.agent/skills`
+- you want GitHub-repo installation instead of custom shell scripts
+- you want a package-manager-like install story for skills
 
 ### 4. Prompt-Only Fallback
 
