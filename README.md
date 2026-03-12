@@ -48,6 +48,32 @@ Typical users:
 - training systems engineers
 - research engineers translating papers into production experiments
 
+## Quick Start
+
+If you just landed on this repository, use this path:
+
+1. Read [docs/installation.md](docs/installation.md).
+2. Start with one umbrella skill:
+   - `llm-posttrain-pipeline` for general recipe planning
+   - `llm-reasoning-posttrain` for reasoning-specific work
+   - `llm-eval-loop` for checkpoint comparison
+   - `llm-training-systems` for systems bottlenecks
+3. Pull in one specialist module only after the lead skill has framed the task.
+4. Use the examples in [examples/README.md](examples/README.md) to copy a starting prompt and output shape.
+5. If your runtime does not support skill discovery yet, use the prompt-only fallback in [docs/runtime-patterns.md](docs/runtime-patterns.md).
+
+If you only want one first prompt, start here:
+
+```text
+Use $llm-posttrain-pipeline to decide the next post-training stage for this model, recommend the best open-source framework, and define the minimum dataset and eval plan.
+```
+
+For a stronger first session, use:
+
+- [docs/first-session.md](docs/first-session.md)
+- [docs/runtime-patterns.md](docs/runtime-patterns.md)
+- [examples/README.md](examples/README.md)
+
 ## Top-Level Design
 
 The design assumption is that an algorithm engineer usually works in one of four modes:
@@ -137,11 +163,14 @@ Common scenarios this repo is designed for:
 
 Detailed scenario mapping lives in:
 
-- [docs/work-scenarios.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/work-scenarios.md)
-- [docs/default-workflows.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/default-workflows.md)
-- [docs/design-principles.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/design-principles.md)
-- [docs/module-map.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/module-map.md)
-- [docs/installation.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/installation.md)
+- [docs/work-scenarios.md](docs/work-scenarios.md)
+- [docs/default-workflows.md](docs/default-workflows.md)
+- [docs/design-principles.md](docs/design-principles.md)
+- [docs/module-map.md](docs/module-map.md)
+- [docs/installation.md](docs/installation.md)
+- [docs/runtime-patterns.md](docs/runtime-patterns.md)
+- [docs/first-session.md](docs/first-session.md)
+- [examples/README.md](examples/README.md)
 
 ## Repository Layout
 
@@ -152,8 +181,18 @@ llm-superpowers/
 │   ├── design-principles.md
 │   ├── work-scenarios.md
 │   ├── default-workflows.md
+│   ├── first-session.md
 │   ├── module-map.md
-│   └── installation.md
+│   ├── installation.md
+│   └── runtime-patterns.md
+├── examples/
+│   ├── README.md
+│   ├── new-posttrain-plan.md
+│   ├── synthetic-data-plan.md
+│   ├── reasoning-improvement.md
+│   ├── regression-triage.md
+│   ├── systems-bottleneck.md
+│   └── paper-to-recipe.md
 └── skills/
     ├── data-curation-and-filtering/
     ├── eval-and-regression-gates/
@@ -277,6 +316,6 @@ The next quality jump is not “more categories.” It is sharper boundaries, st
 
 This repository now includes:
 
-- [LICENSE](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/LICENSE)
-- [CONTRIBUTING.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/CONTRIBUTING.md)
-- [docs/installation.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/installation.md)
+- [LICENSE](LICENSE)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [docs/installation.md](docs/installation.md)
