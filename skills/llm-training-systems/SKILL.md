@@ -1,11 +1,19 @@
 ---
 name: llm-training-systems
-description: Distributed training, inference, and systems optimization for LLM development. Use when Codex needs to diagnose OOMs, unstable loss, slow throughput, broken parallelism, checkpointing issues, attention kernel problems, FSDP or DeepSpeed tradeoffs, or serving bottlenecks across training and inference stacks such as PyTorch, DeepSpeed, FSDP, Megatron, vLLM, and SGLang.
+description: Distributed training, inference, and systems optimization for LLM development. Use when Codex needs to answer questions such as 'why are we OOMing', 'why did throughput collapse', 'why does this run diverge only at scale', diagnose unstable loss, broken parallelism, checkpointing issues, attention kernel problems, FSDP or DeepSpeed tradeoffs, or serving bottlenecks across training and inference stacks such as PyTorch, DeepSpeed, FSDP, Megatron, vLLM, and SGLang.
 ---
 
 # LLM Training Systems
 
 Use this skill when the problem is systems reality rather than algorithm theory.
+
+## Use This Skill First When
+
+- the run is OOMing
+- throughput is unexpectedly poor
+- a recipe works at small scale but fails at larger scale
+- training diverges and the likely cause is precision, checkpointing, or parallelism
+- serving behavior or inference throughput is blocking evaluation
 
 ## Core Workflow
 
@@ -22,6 +30,18 @@ Use this skill when the problem is systems reality rather than algorithm theory.
 - Favor the simplest stack that meets the target scale.
 - Treat logging, profiling, and reproducibility as part of system design.
 - Separate training optimizations from inference optimizations.
+
+## Do Not Lead With This Skill When
+
+- the project still has not chosen a post-training recipe
+- the main blocker is dataset schema or synthetic data quality
+- the team lacks a credible evaluation loop
+- the real question is what a paper is actually proposing
+
+## Typical Hand-Offs
+
+- to `llm-eval-loop` to make sure optimizations preserve fairness and quality
+- to `llm-posttrain-pipeline` if systems pain reveals an unrealistic recipe choice
 
 ## Output Shape
 

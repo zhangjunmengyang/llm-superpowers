@@ -2,34 +2,33 @@
 
 An open skill pack for LLM algorithm engineers.
 
-This project is for the core training side of LLM engineering: post-training, finetuning, alignment, reasoning, evaluation, data, and training systems. It is intentionally not an AI application or agent workflow pack.
+This repository is for the core training side of LLM engineering: post-training, finetuning, alignment, reasoning, evaluation, data, and training systems. It is intentionally not an agent-product or AI application workflow pack.
 
-## Vision
+## Why This Exists
 
-The goal is to turn high-value algorithm engineering workflows into reusable superpowers.
-
-Most open LLM work is still fragmented across:
+High-value algorithm engineering knowledge is still scattered across:
 
 - papers
-- training repos
+- training repositories
 - notebooks
-- issue threads
 - benchmark scripts
-- tribal knowledge
+- issue threads
+- team tribal knowledge
 
-This pack tries to compress that mess into reusable skills that another coding agent can invoke directly.
+The goal of `llm-superpowers` is to compress that knowledge into reusable skills that another coding agent can invoke directly.
 
-The end state is not an awesome-list. The end state is a practical operating layer for LLM algorithm engineers:
+This repo is not trying to be:
 
-- choose the right post-training algorithm
-- design the right dataset schema
-- turn a paper into a runnable recipe
-- debug scaling and systems issues
-- evaluate progress with real gates instead of vibes
+- another giant awesome-list
+- a framework wrapper
+- a benchmark leaderboard
+- a product-agent toolkit
 
-## Scope
+It is trying to be an operating layer for LLM algorithm work.
 
-This pack focuses on:
+## Who This Is For
+
+This repository is for engineers working on:
 
 - continued pretraining
 - SFT
@@ -37,47 +36,96 @@ This pack focuses on:
 - reward modeling
 - online RL for LLMs
 - reasoning post-training
-- synthetic data for training
+- synthetic training data
 - evaluation and regression detection
 - distributed training and inference systems
-- research-to-recipe translation
+- paper-to-recipe translation
 
-This pack does not focus on:
+Typical users:
 
-- agent products
-- RAG application architecture
-- workflow automation for business apps
-- general-purpose prompt engineering
+- post-training engineers
+- alignment and reasoning engineers
+- training systems engineers
+- research engineers translating papers into production experiments
 
-## Principles
+## Top-Level Design
 
-- framework-agnostic
-- open-source first
-- operational over academic
-- narrow but high-leverage
-- reusable across repositories
-- optimized for training and post-training work
+The design assumption is that an algorithm engineer usually works in one of four modes:
+
+1. Decide what to run.
+2. Build the data or recipe.
+3. Evaluate whether it worked.
+4. Debug why it failed.
+
+The repo is organized around those modes.
+
+### Skill Layers
+
+- Strategy skills
+  - choose stage, algorithm, framework, and experiment plan
+- Execution skills
+  - design data, reasoning recipes, and reproduction plans
+- Judgment skills
+  - define eval gates and compare baselines
+- Systems skills
+  - diagnose memory, throughput, stability, and serving bottlenecks
+
+### Composition Model
+
+Use one lead skill and, at most, one or two support skills.
+
+Examples:
+
+- new alignment plan:
+  - lead: `llm-posttrain-pipeline`
+  - support: `llm-synthetic-data`, `llm-eval-loop`
+- reasoning model improvement:
+  - lead: `llm-reasoning-posttrain`
+  - support: `llm-synthetic-data`, `llm-eval-loop`
+- paper reproduction:
+  - lead: `llm-research-to-recipe`
+  - support: `llm-posttrain-pipeline`, `llm-training-systems`
+- scaling failure:
+  - lead: `llm-training-systems`
+  - support: `llm-eval-loop`
 
 ## Current Skills
 
-- `llm-posttrain-pipeline`
-  - choose stage, algorithm, and framework
-- `llm-synthetic-data`
-  - design reusable synthetic training datasets
-- `llm-reasoning-posttrain`
-  - build reasoning, verifier, PRM, and RL recipes
-- `llm-eval-loop`
-  - define benchmark plans and acceptance gates
-- `llm-training-systems`
-  - debug memory, throughput, stability, and serving bottlenecks
-- `llm-research-to-recipe`
-  - turn papers and repos into runnable engineering recipes
+| Skill | Primary job | Use first when | Typical hand-off |
+| --- | --- | --- | --- |
+| `llm-posttrain-pipeline` | Choose stage, algorithm, and framework | you need to decide what recipe to run | `llm-synthetic-data`, `llm-eval-loop` |
+| `llm-synthetic-data` | Design reusable training datasets | the bottleneck is data quality, schema, or preference construction | `llm-posttrain-pipeline`, `llm-reasoning-posttrain` |
+| `llm-reasoning-posttrain` | Build reasoning, verifier, PRM, and RL recipes | the target is reasoning correctness rather than generic alignment | `llm-synthetic-data`, `llm-eval-loop` |
+| `llm-eval-loop` | Define benchmark plans and acceptance gates | you need to compare baseline vs candidate or set ship criteria | `llm-posttrain-pipeline`, `llm-training-systems` |
+| `llm-training-systems` | Debug scale, memory, throughput, and stability | the blocker is systems behavior rather than algorithm choice | `llm-eval-loop` |
+| `llm-research-to-recipe` | Turn papers and repos into runnable engineering recipes | you need to extract the real recipe from research | `llm-posttrain-pipeline`, `llm-training-systems` |
+
+## Work Scenarios
+
+Common scenarios this repo is designed for:
+
+- “We need to improve a base model on a new domain. Should we do CPT, SFT, or DPO first?”
+- “Our DPO model got better on demos but regressed on safety and reasoning.”
+- “We want to build reasoning data for math or code. Do we need PRM, verifier, or best-of-n?”
+- “This paper looks strong. What is the minimum faithful reproduction and what is the cheaper approximation?”
+- “The run is OOMing or throughput collapsed. Is this a systems problem or a recipe problem?”
+- “We have several checkpoints. What does a credible evaluation loop look like?”
+
+Detailed scenario mapping lives in:
+
+- [docs/work-scenarios.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/work-scenarios.md)
+- [docs/default-workflows.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/default-workflows.md)
+- [docs/design-principles.md](/Users/zhangjunmengyang/PycharmProjects/llm-superpowers/docs/design-principles.md)
 
 ## Repository Layout
 
 ```text
 llm-superpowers/
 ├── README.md
+├── docs/
+│   ├── design-principles.md
+│   ├── work-scenarios.md
+│   └── default-workflows.md
 └── skills/
     ├── llm-posttrain-pipeline/
     ├── llm-synthetic-data/
@@ -92,6 +140,16 @@ Each skill contains:
 - `SKILL.md`
 - `agents/openai.yaml`
 - `references/`
+
+## Design Principles
+
+- framework-agnostic
+- open-source first
+- operational over academic
+- narrow but high-leverage
+- reusable across repositories
+- optimized for training and post-training work
+- explicit about boundaries between skills
 
 ## Public Foundations
 
@@ -123,7 +181,7 @@ Build the minimum useful core:
 
 ### V1
 
-Split the current skills into sharper algorithm modules:
+Split the current broad skills into sharper algorithm modules:
 
 - `sft-recipe-design`
 - `preference-optimization`
@@ -136,7 +194,7 @@ Split the current skills into sharper algorithm modules:
 
 ### V2
 
-Add more advanced algorithm engineering coverage:
+Add deeper algorithm engineering coverage:
 
 - data mixture design
 - decontamination and leakage checks
@@ -149,7 +207,7 @@ Add more advanced algorithm engineering coverage:
 
 ### V3
 
-Make the pack production-grade as a standalone public repo:
+Make the pack production-grade as a standalone repo:
 
 - installation docs for Codex, Claude, Cursor, and compatible runtimes
 - skill packaging conventions
@@ -157,9 +215,9 @@ Make the pack production-grade as a standalone public repo:
 - tests and validation for skill quality
 - optional MCP integrations for papers, GitHub, datasets, and experiments
 
-## Planned Additions
+## Near-Term Additions
 
-Near-term additions I would make next:
+The next skills worth adding are:
 
 - `sft-recipe-design`
 - `preference-optimization`
@@ -170,29 +228,15 @@ Near-term additions I would make next:
 - `long-context-posttraining`
 - `distillation-and-merging`
 
-## Repository Strategy
-
-Right now this lives under `skills/` inside another repo. The intended direction is to extract it into its own public repository once the core modules stabilize.
-
-That standalone repo should eventually have:
-
-- a clean root README
-- install and usage docs
-- examples by framework
-- contribution guidelines
-- release notes
-- a stable naming scheme for skills
-
 ## Non-Goals
 
-- being a benchmark leaderboard repo
-- being another giant awesome-list
 - being tied to one framework
 - being tied to one codebase
-- mixing algorithm training skills with product-layer application skills
+- mixing algorithm-training skills with product-agent skills
+- replacing framework docs or academic papers
 
 ## Status
 
-This is an early but real starting point, not the finished system.
+This is an early but real starting point.
 
-The right next step is to keep sharpening the algorithm modules until each one feels like a real superpower, not a category label.
+The next quality jump is not “more categories.” It is sharper boundaries, stronger scenario coverage, and better workflow composition between the skills that already exist.

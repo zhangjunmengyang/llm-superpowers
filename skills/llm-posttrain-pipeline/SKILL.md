@@ -1,11 +1,18 @@
 ---
 name: llm-posttrain-pipeline
-description: Framework-agnostic LLM post-training workflow design for SFT, preference optimization, reward modeling, online RL, rejection sampling, distillation, and hybrid alignment pipelines. Use when Codex needs to choose the right post-training algorithm, compare public frameworks, translate a research idea into a runnable recipe, or design a minimal and scalable training plan for any LLM project rather than a single repository.
+description: Framework-agnostic LLM post-training workflow design for SFT, preference optimization, reward modeling, online RL, rejection sampling, distillation, and hybrid alignment pipelines. Use when Codex needs to answer questions such as 'should we run SFT, DPO, reward modeling, or RL next', compare public frameworks, translate a research idea into a runnable recipe, or design a minimal and scalable training plan for any LLM project rather than a single repository.
 ---
 
 # LLM Posttrain Pipeline
 
 Use this skill to turn a vague post-training request into a concrete algorithm and tooling plan without assuming a specific codebase.
+
+## Use This Skill First When
+
+- the main question is which stage to run next
+- the team is choosing between SFT, DPO, reward modeling, rejection sampling, or RL
+- a paper idea needs to become an experiment plan
+- the project needs a smallest-runnable recipe before implementation
 
 ## Core Workflow
 
@@ -26,6 +33,13 @@ Use this skill to turn a vague post-training request into a concrete algorithm a
 - rejection sampling and best-of-n
 - distillation
 
+## Do Not Lead With This Skill When
+
+- the algorithm is already chosen and the bottleneck is dataset design
+- the project is clearly reasoning-specific and needs PRM or verifier design
+- the main blocker is benchmark design or regression triage
+- the run is failing because of memory, throughput, or instability
+
 ## Operating Rules
 
 - Prefer the cheapest stage that can change the target behavior.
@@ -34,6 +48,13 @@ Use this skill to turn a vague post-training request into a concrete algorithm a
 - Keep the base model, tokenizer, data schema, reward logic, and eval suite explicit in every plan.
 - Separate proof-of-life, scaling recipe, and production recipe. They are not the same artifact.
 - If the user asks for an open-source baseline, map the plan to a public framework and repo rather than inventing a private stack.
+
+## Typical Hand-Offs
+
+- to `llm-synthetic-data` for schema and data construction
+- to `llm-reasoning-posttrain` for reasoning-specific recipes
+- to `llm-eval-loop` for acceptance gates
+- to `llm-training-systems` once the recipe is chosen and scaling becomes the bottleneck
 
 ## Output Shape
 

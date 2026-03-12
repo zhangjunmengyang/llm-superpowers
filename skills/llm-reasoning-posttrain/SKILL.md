@@ -1,11 +1,18 @@
 ---
 name: llm-reasoning-posttrain
-description: Reasoning-focused post-training workflows for step SFT, verifier training, process reward models, rejection sampling, reasoning RL, and math or code tasks. Use when Codex needs to design R1-style reasoning recipes, preserve step structure, build process supervision data, choose verifier or reward strategies, or bridge a research idea to frameworks such as Open-R1, veRL, TRL, or other public reasoning stacks.
+description: Reasoning-focused post-training workflows for step SFT, verifier training, process reward models, rejection sampling, reasoning RL, and math or code tasks. Use when Codex needs to answer questions such as 'do we need PRM, a verifier, best-of-n, or RL for reasoning', design R1-style reasoning recipes, preserve step structure, build process supervision data, choose verifier or reward strategies, or bridge a research idea to frameworks such as Open-R1, veRL, TRL, or other public reasoning stacks.
 ---
 
 # LLM Reasoning Posttrain
 
-Use this skill when the task is not generic alignment but reasoning quality: step decomposition, process supervision, verifier-friendly traces, tool-assisted reasoning, or math and code RL.
+Use this skill when the task is not generic alignment but reasoning quality: step decomposition, process supervision, verifier-friendly traces, or math and code RL.
+
+## Use This Skill First When
+
+- the target improvement is reasoning correctness
+- the team is choosing between PRM, verifier supervision, best-of-n, or RL
+- the project needs structured reasoning traces instead of generic preference data
+- an R1-style or reasoning-specific recipe needs to be translated into an experiment
 
 ## Core Workflow
 
@@ -33,6 +40,19 @@ Use this skill when the task is not generic alignment but reasoning quality: ste
 - Use rule-based grading whenever the task admits a reliable verifier.
 - Distinguish reasoning quality from verbosity.
 - If the user asks for R1-style RL, define rollout, reward, and distillation separately.
+
+## Do Not Lead With This Skill When
+
+- the task is generic chat alignment with no reasoning-specific target
+- the primary issue is framework or stage selection
+- the main blocker is benchmarking or regression gates
+- the run is failing for systems reasons
+
+## Typical Hand-Offs
+
+- to `llm-synthetic-data` for trace and label construction
+- to `llm-eval-loop` for reasoning-specific correctness checks
+- to `llm-training-systems` when verifier or RL loops become the bottleneck
 
 ## Output Shape
 
