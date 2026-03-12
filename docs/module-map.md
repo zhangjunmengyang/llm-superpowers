@@ -1,48 +1,32 @@
 # Module Map
 
-This document explains the relationship between umbrella skills and specialist modules.
+This document maps programs to the skills and artifacts that actually support them.
 
-## Two-Layer Model
+## Program To Skill Map
 
-`llm-superpowers` now has two layers:
+| Program | Lead skills | Must leave behind |
+| --- | --- | --- |
+| `experiment-loop` | `llm-posttrain-pipeline`, `llm-synthetic-data`, `llm-eval-loop`, `run-ledger-and-keep-discard` | experiment card, `results.tsv`, explicit keep/discard decision |
+| `eval-board` | `llm-eval-loop`, `checkpoint-regression-triage` | eval board, failure slices, promotion decision |
+| `systems-war-room` | `llm-training-systems`, `throughput-and-oom-triage`, `llm-eval-loop` | systems triage board, one-axis intervention plan, quality recheck |
+| `research-to-experiment` | `llm-research-to-recipe`, `llm-posttrain-pipeline` | reproduction plan, irreducibles, first runnable experiment |
 
-### 1. Umbrella Skills
+## Optional Deepening Modules
 
-These lead broad work modes.
+Use these only when the main loop has already exposed the narrower problem:
 
-- `llm-posttrain-pipeline`
-- `llm-synthetic-data`
 - `llm-reasoning-posttrain`
-- `llm-eval-loop`
-- `llm-training-systems`
-- `llm-research-to-recipe`
-
-### 2. Specialist Modules
-
-These handle deeper execution inside a narrower slice of work.
-
 - `sft-recipe-design`
 - `preference-optimization`
 - `reward-modeling`
 - `online-rl-posttraining`
 - `reasoning-prm-verifier`
 - `data-curation-and-filtering`
+- `eval-and-regression-gates`
+- `training-systems-debug`
 
-## Mapping
+## Rule
 
-| Umbrella skill | Specialist modules it should commonly hand off to |
-| --- | --- |
-| `llm-posttrain-pipeline` | `sft-recipe-design`, `preference-optimization`, `reward-modeling`, `online-rl-posttraining` |
-| `llm-synthetic-data` | `data-curation-and-filtering` |
-| `llm-reasoning-posttrain` | `reasoning-prm-verifier` |
-| `llm-eval-loop` | none yet; a future `eval-and-regression-gates` module should live here |
-| `llm-training-systems` | none yet; a future `training-systems-debug` module should sharpen this layer |
-| `llm-research-to-recipe` | can hand off to any umbrella or specialist module after extraction |
+If the question is about sequence, escalation, or artifact flow, it belongs to a program.
 
-## Design Rule
-
-Use umbrellas to decide direction.
-
-Use specialists to make the direction concrete.
-
-If a specialist starts absorbing broad orchestration, it should probably move back into an umbrella.
+If the question is about one sharp decision problem, it belongs to a skill.

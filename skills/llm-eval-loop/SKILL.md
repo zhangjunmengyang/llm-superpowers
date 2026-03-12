@@ -1,43 +1,55 @@
 ---
 name: llm-eval-loop
-description: Tight evaluation loops for LLM quality, safety, reasoning, reward, and regression detection. Use when Codex needs to answer questions such as 'how do we compare baseline vs candidate', 'which benchmark should we trust', 'what are the ship gates', compare checkpoints, choose benchmarks, define acceptance gates, set up judge or verifier evaluation, or turn pretraining, finetuning, alignment, and reasoning outputs into repeatable measurements across any repository or framework.
+description: Evaluation-board design for baseline-vs-candidate comparison, failure slices, ship or hold decisions, judge setup, and regression measurement in LLM training work. Use when Codex needs to answer questions such as 'how do we compare this checkpoint', 'what belongs on the eval board', 'which metrics should gate promotion', or turn raw outputs into a decision with hard blockers, watchlist metrics, and sampled failures.
 ---
 
 # LLM Eval Loop
 
-Use this skill to keep training work grounded in measurable decisions instead of anecdotes from showcase prompts.
+Use this skill to build a real eval board, not a generic benchmark list.
 
 ## Use This Skill First When
 
 - there is already a baseline and at least one candidate
-- the team needs ship gates, comparison logic, or benchmark selection
-- a promising run needs to be validated before scale-up
-- a regression is suspected but not yet localized
+- the team needs a board that can support ship, hold, investigate, or rollback
+- a promising run needs measurement before baseline advancement
+- a regression exists and the team needs slice-level evidence
 
 ## Core Workflow
 
 1. Define what changed between baseline and candidate.
-2. Choose the smallest eval set that can detect the expected gain or regression.
-3. Separate generation from scoring.
-4. Track at least one task metric and one safety, preference, or success metric.
-5. Produce a ship, hold, or investigate decision.
+2. Freeze prompts, datasets, and decoding settings.
+3. Split metrics into hard blockers, watchlist, and diagnostic-only.
+4. Review failure slices and sampled bad cases.
+5. Produce a ship, hold, investigate, or rollback decision.
 
-## Eval Types
+## Board Sections
 
-- offline benchmark eval
-- pairwise judge eval
-- reward model eval
-- safety eval
-- reasoning correctness eval
-- latency and cost eval
+- headline metrics
+- hard blockers
+- watchlist metrics
+- failure slices
+- final decision
 
-## Rules
+## Required Output
+
+When using this skill, return:
+
+- baseline and candidate
+- frozen measurement setup
+- hard blocker metrics
+- watchlist metrics
+- failure slices
+- final decision
+- known blind spots
+
+## Hard Rules
 
 - Keep the benchmark set stable when comparing checkpoints.
 - Always compare against a named baseline.
-- Use targeted probes for qualitative debugging, but do not mistake them for evaluation.
+- Use targeted probes for debugging, but do not confuse them with the board.
 - Do not use the same model family as both candidate and sole judge without noting the bias.
-- If the user asks for broad public benchmarking, use public harnesses instead of ad hoc prompt scripts.
+- Do not sign off from averages only.
+- Do not let one better global mean hide a bad slice that actually matters.
 
 ## Do Not Lead With This Skill When
 
@@ -46,24 +58,6 @@ Use this skill to keep training work grounded in measurable decisions instead of
 - the target is reasoning recipe design rather than evidence gathering
 - the main blocker is memory, throughput, or instability
 
-## Typical Hand-Offs
-
-- to `llm-posttrain-pipeline` when results imply the wrong recipe was chosen
-- to `llm-synthetic-data` when regressions trace back to data quality
-- to `llm-training-systems` when performance or instability invalidates fair comparison
-
-## Output Shape
-
-When using this skill, return:
-
-- baseline and candidate
-- eval dataset or prompt suite
-- generation settings
-- scoring method
-- pass or fail criteria
-- decision
-- known blind spots
-
 ## References
 
-- Read `references/benchmarks.md` for benchmark and harness choices.
+- Read `references/benchmarks.md` for board design, harness choices, and failure review rules.

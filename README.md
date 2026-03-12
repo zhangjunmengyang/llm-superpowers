@@ -2,410 +2,208 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-An open skill pack for LLM algorithm engineers.
+Only the root README is translated. The rest of the repository is maintained in English to avoid documentation drift.
 
-This repository is for the core training side of LLM engineering: post-training, finetuning, alignment, reasoning, evaluation, data, and training systems. It is intentionally not an agent-product or AI application workflow pack.
+`llm-superpowers` is no longer centered on generic skill taxonomies.
 
-## Why This Exists
+Its core unit is now the **program**:
 
-High-value algorithm engineering knowledge is still scattered across:
+- a concrete operating loop
+- explicit artifacts
+- named metrics
+- keep or discard decisions
+- escalation paths into eval, systems, or research review
 
-- papers
-- training repositories
-- notebooks
-- benchmark scripts
-- issue threads
-- team tribal knowledge
+Skills remain, but they are now local primitives.
+Programs own the sequence.
 
-The goal of `llm-superpowers` is to compress that knowledge into reusable skills that another coding agent can invoke directly.
+## What This Repository Is
 
-This repo is not trying to be:
+This repository is for the training side of LLM engineering:
 
-- another giant awesome-list
-- a framework wrapper
+- post-training
+- data design
+- evaluation and regression review
+- systems triage
+- research reproduction
+
+It is not:
+
+- an AI application framework
+- an awesome list
 - a benchmark leaderboard
-- a product-agent toolkit
+- a loose collection of algorithm category cards
 
-It is trying to be an operating layer for LLM algorithm work.
+## The Paradigm
 
-## Who This Is For
+The repository has three layers:
 
-This repository is for engineers working on:
+1. **Programs**
+   - long-running operating loops such as experiment management, eval review, and systems triage
+2. **Skills**
+   - sharp local procedures such as experiment design, eval-board construction, data-product design, and run-ledger discipline
+3. **Templates**
+   - concrete artifacts such as `results.tsv`, experiment cards, eval boards, and triage logs
 
-- continued pretraining
-- SFT
-- preference optimization
-- reward modeling
-- online RL for LLMs
-- reasoning post-training
-- synthetic training data
-- evaluation and regression detection
-- distributed training and inference systems
-- paper-to-recipe translation
+The rule is simple:
 
-Typical users:
+- programs orchestrate
+- skills do one job well
+- templates make the work durable
 
-- post-training engineers
-- alignment and reasoning engineers
-- training systems engineers
-- research engineers translating papers into production experiments
+## Programs
 
-## Install By Runtime
+Start here:
 
-Use the command that matches your agent.
+- [programs/README.md](programs/README.md)
+- [programs/experiment-loop.md](programs/experiment-loop.md)
+- [programs/eval-board.md](programs/eval-board.md)
+- [programs/systems-war-room.md](programs/systems-war-room.md)
+- [programs/research-to-experiment.md](programs/research-to-experiment.md)
+
+These are the real operating modes of the repository.
+
+## High-Value Skills
+
+The most useful skills right now are:
+
+- `llm-posttrain-pipeline`
+  - design the next real run
+- `llm-synthetic-data`
+  - design a data product that can survive audit
+- `llm-eval-loop`
+  - build a real evaluation board
+- `llm-training-systems`
+  - run measured systems triage
+- `llm-research-to-recipe`
+  - extract irreducibles and first runnable experiments
+- `run-ledger-and-keep-discard`
+  - decide whether a run advances the baseline
+- `checkpoint-regression-triage`
+  - turn bad slices into the next isolating run
+- `throughput-and-oom-triage`
+  - fix operationally invalid runs one axis at a time
+
+## Quick Start
+
+1. Install the repository into your runtime.
+   - see [docs/installation.md](docs/installation.md)
+2. Create a `runboard/` directory in your project.
+3. Copy the templates from [programs/templates](programs/templates).
+4. Pick one program.
+5. Run the loop with one lead skill at a time.
+
+If you only want one first prompt, use:
+
+```text
+Use $llm-posttrain-pipeline to turn this objective into one experiment card with a named baseline, one change surface, a success condition, a kill condition, and a rollback point.
+```
+
+## Install
 
 ### Claude Code
-
-Global install:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code --profile starter
 ```
 
-Project-local install:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime claude-code-project --profile starter
-```
-
 ### Codex
-
-Global install:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime codex --profile starter
 ```
 
-Or tell Codex to fetch:
+Or tell Codex:
 
 ```text
-https://github.com/zhangjunmengyang/llm-superpowers/blob/main/.codex/INSTALL.md
+Fetch and follow instructions from https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/.codex/INSTALL.md
 ```
 
 ### OpenCode
-
-Global install:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode --profile starter
 ```
 
-Project-local install:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime opencode-project --profile starter
-```
-
 ### OpenClaw
-
-Global install:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime openclaw --profile starter
 ```
 
-### OpenSkills-Compatible Agents
-
-For OpenSkills-compatible environments such as shared AGENTS-based setups:
+### OpenSkills-Compatible Environments
 
 ```bash
 npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpowers.git
 npx -y openskills sync
 ```
 
-### Any Other Runtime
-
-If your tool has a known skill directory but no preset:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --target-dir /path/to/your/runtime/skills --profile all
-```
-
-After installation:
-
-1. Read [docs/installation.md](docs/installation.md).
-2. Start with one umbrella skill:
-   - `llm-posttrain-pipeline` for general recipe planning
-   - `llm-reasoning-posttrain` for reasoning-specific work
-   - `llm-eval-loop` for checkpoint comparison
-   - `llm-training-systems` for systems bottlenecks
-3. Pull in one specialist module only after the lead skill has framed the task.
-4. Use the examples in [examples/README.md](examples/README.md) to copy a starting prompt and output shape.
-5. If your runtime does not support skill discovery yet, use the prompt-only fallback in [docs/runtime-patterns.md](docs/runtime-patterns.md).
-
-If you only want one first prompt, start here:
-
-```text
-Use $llm-posttrain-pipeline to decide the next post-training stage for this model, recommend the best open-source framework, and define the minimum dataset and eval plan.
-```
-
-For a stronger first session, use:
-
-- [docs/first-session.md](docs/first-session.md)
-- [docs/runtime-patterns.md](docs/runtime-patterns.md)
-- [examples/README.md](examples/README.md)
-
-## Distribution Model
-
-This repository now supports three open-source distribution styles:
-
-- `superpowers`-style bootstrap via [.codex/INSTALL.md](.codex/INSTALL.md)
-- direct one-command install via [scripts/install.sh](scripts/install.sh)
-- universal repo install via OpenSkills
-
-That combination makes the pack usable both for native Codex workflows and for broader cross-tool skill loaders.
-
-## Runtime Matrix
-
-See [docs/runtime-matrix.md](docs/runtime-matrix.md) for per-agent commands, target directories, and notes.
-
-## Top-Level Design
-
-The design assumption is that an algorithm engineer usually works in one of four modes:
-
-1. Decide what to run.
-2. Build the data or recipe.
-3. Evaluate whether it worked.
-4. Debug why it failed.
-
-The repo is organized around those modes.
-
-### Skill Layers
-
-- Strategy skills
-  - choose stage, algorithm, framework, and experiment plan
-- Execution skills
-  - design data, reasoning recipes, and reproduction plans
-- Judgment skills
-  - define eval gates and compare baselines
-- Systems skills
-  - diagnose memory, throughput, stability, and serving bottlenecks
-
-### Two-Layer Architecture
-
-- umbrella skills
-  - broad work-mode leaders
-  - decide direction, stage, and composition
-- specialist modules
-  - narrower algorithm modules
-  - make one part of the recipe concrete
-
-### Composition Model
-
-Use one lead skill and, at most, one or two support skills.
-
-Examples:
-
-- new alignment plan:
-  - lead: `llm-posttrain-pipeline`
-  - support: `llm-synthetic-data`, `llm-eval-loop`
-- reasoning model improvement:
-  - lead: `llm-reasoning-posttrain`
-  - support: `llm-synthetic-data`, `llm-eval-loop`
-- paper reproduction:
-  - lead: `llm-research-to-recipe`
-  - support: `llm-posttrain-pipeline`, `llm-training-systems`
-- scaling failure:
-  - lead: `llm-training-systems`
-  - support: `llm-eval-loop`
-
-## Current Skills
-
-| Skill | Primary job | Use first when | Typical hand-off |
-| --- | --- | --- | --- |
-| `llm-posttrain-pipeline` | Choose stage, algorithm, and framework | you need to decide what recipe to run | `llm-synthetic-data`, `llm-eval-loop` |
-| `llm-synthetic-data` | Design reusable training datasets | the bottleneck is data quality, schema, or preference construction | `llm-posttrain-pipeline`, `llm-reasoning-posttrain` |
-| `llm-reasoning-posttrain` | Build reasoning, verifier, PRM, and RL recipes | the target is reasoning correctness rather than generic alignment | `llm-synthetic-data`, `llm-eval-loop` |
-| `llm-eval-loop` | Define benchmark plans and acceptance gates | you need to compare baseline vs candidate or set ship criteria | `llm-posttrain-pipeline`, `llm-training-systems` |
-| `llm-training-systems` | Debug scale, memory, throughput, and stability | the blocker is systems behavior rather than algorithm choice | `llm-eval-loop` |
-| `llm-research-to-recipe` | Turn papers and repos into runnable engineering recipes | you need to extract the real recipe from research | `llm-posttrain-pipeline`, `llm-training-systems` |
-
-## Specialist Modules
-
-These are the first V1 modules that sharpen the broad umbrella skills.
-
-| Module | Primary job | Typical umbrella lead |
-| --- | --- | --- |
-| `sft-recipe-design` | design strong SFT recipes | `llm-posttrain-pipeline` |
-| `preference-optimization` | choose and design offline preference methods | `llm-posttrain-pipeline` |
-| `reward-modeling` | build and validate reward signals | `llm-posttrain-pipeline` |
-| `online-rl-posttraining` | design rollout-based RL recipes | `llm-posttrain-pipeline` |
-| `reasoning-prm-verifier` | build process supervision for reasoning | `llm-reasoning-posttrain` |
-| `data-curation-and-filtering` | curate and filter training data | `llm-synthetic-data` |
-| `eval-and-regression-gates` | turn evaluation into release or rollback decisions | `llm-eval-loop` |
-| `training-systems-debug` | diagnose concrete systems failures safely | `llm-training-systems` |
-
-## Work Scenarios
-
-Common scenarios this repo is designed for:
-
-- “We need to improve a base model on a new domain. Should we do CPT, SFT, or DPO first?”
-- “Our DPO model got better on demos but regressed on safety and reasoning.”
-- “We want to build reasoning data for math or code. Do we need PRM, verifier, or best-of-n?”
-- “This paper looks strong. What is the minimum faithful reproduction and what is the cheaper approximation?”
-- “The run is OOMing or throughput collapsed. Is this a systems problem or a recipe problem?”
-- “We have several checkpoints. What does a credible evaluation loop look like?”
-
-Detailed scenario mapping lives in:
-
-- [docs/work-scenarios.md](docs/work-scenarios.md)
-- [docs/default-workflows.md](docs/default-workflows.md)
-- [docs/design-principles.md](docs/design-principles.md)
-- [docs/module-map.md](docs/module-map.md)
-- [docs/installation.md](docs/installation.md)
-- [docs/runtime-patterns.md](docs/runtime-patterns.md)
-- [docs/first-session.md](docs/first-session.md)
-- [examples/README.md](examples/README.md)
+For the full matrix, see [docs/runtime-matrix.md](docs/runtime-matrix.md).
 
 ## Repository Layout
 
 ```text
 llm-superpowers/
 ├── README.md
-├── .codex/
-│   └── INSTALL.md
-├── scripts/
-│   ├── install.py
-│   └── install.sh
-├── docs/
-│   ├── design-principles.md
-│   ├── work-scenarios.md
-│   ├── default-workflows.md
-│   ├── first-session.md
-│   ├── module-map.md
-│   ├── installation.md
-│   ├── runtime-matrix.md
-│   └── runtime-patterns.md
-├── examples/
+├── README.zh-CN.md
+├── programs/
 │   ├── README.md
-│   ├── new-posttrain-plan.md
-│   ├── synthetic-data-plan.md
-│   ├── reasoning-improvement.md
-│   ├── regression-triage.md
-│   ├── systems-bottleneck.md
-│   └── paper-to-recipe.md
-└── skills/
-    ├── data-curation-and-filtering/
-    ├── eval-and-regression-gates/
-    ├── llm-posttrain-pipeline/
-    ├── llm-synthetic-data/
-    ├── llm-reasoning-posttrain/
-    ├── llm-eval-loop/
-    ├── llm-training-systems/
-    ├── llm-research-to-recipe/
-    ├── online-rl-posttraining/
-    ├── preference-optimization/
-    ├── reasoning-prm-verifier/
-    ├── reward-modeling/
-    ├── sft-recipe-design/
-    └── training-systems-debug/
+│   ├── experiment-loop.md
+│   ├── eval-board.md
+│   ├── systems-war-room.md
+│   ├── research-to-experiment.md
+│   └── templates/
+├── skills/
+│   ├── llm-posttrain-pipeline/
+│   ├── llm-synthetic-data/
+│   ├── llm-eval-loop/
+│   ├── llm-training-systems/
+│   ├── llm-research-to-recipe/
+│   ├── run-ledger-and-keep-discard/
+│   ├── checkpoint-regression-triage/
+│   └── throughput-and-oom-triage/
+└── docs/
+    ├── installation.md
+    ├── runtime-matrix.md
+    └── runtime-patterns.md
 ```
 
-Each skill contains:
+## Design Rules
 
-- `SKILL.md`
-- `agents/openai.yaml`
-- `references/`
-
-## Design Principles
-
-- framework-agnostic
-- open-source first
-- operational over academic
-- narrow but high-leverage
-- reusable across repositories
-- optimized for training and post-training work
-- explicit about boundaries between skills
+- programs own orchestration
+- skills should be independently usable
+- every serious run should leave behind durable artifacts
+- no keep decision without a named baseline
+- no signoff from averages only
+- no systems “fix” without quality recheck
+- no paper reproduction without irreducibles, approximation, and kill criteria
 
 ## Public Foundations
 
-This pack is informed by strong open-source work, especially:
+This repository is especially informed by:
 
+- [obra/superpowers](https://github.com/obra/superpowers)
+- [karpathy/autoresearch](https://github.com/karpathy/autoresearch)
 - [anthropics/skills](https://github.com/anthropics/skills)
-- [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs)
-- [K-Dense-AI/claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills)
 - [huggingface/trl](https://github.com/huggingface/trl)
 - [OpenRLHF/OpenRLHF](https://github.com/OpenRLHF/OpenRLHF)
 - [volcengine/verl](https://github.com/volcengine/verl)
 - [huggingface/open-r1](https://github.com/huggingface/open-r1)
 - [allenai/open-instruct](https://github.com/allenai/open-instruct)
-- [pytorch/torchtune](https://github.com/pytorch/torchtune)
-- [OpenAccess-AI-Collective/axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 
-## Roadmap
+## Near-Term Direction
 
-### V0
+The next useful additions are not broader labels.
 
-Build the minimum useful core:
+They are sharper operating modules such as:
 
-- post-training pipeline selection
-- synthetic data patterns
-- reasoning and PRM recipes
-- evaluation loops
-- training systems debugging
-- paper-to-recipe extraction
-
-### V1
-
-Add and refine sharper algorithm modules:
-
-- `sft-recipe-design`
-- `preference-optimization`
-- `reward-modeling`
-- `online-rl-posttraining`
-- `reasoning-prm-verifier`
-- `data-curation-and-filtering`
-- `eval-and-regression-gates`
-- `training-systems-debug`
-
-### V2
-
-Add deeper algorithm engineering coverage:
-
-- data mixture design
-- decontamination and leakage checks
-- long-context post-training
-- distillation and model merging
-- rejection sampling and best-of-n pipelines
-- curriculum and staged post-training
-- reward shaping and judge design
-- scaling-law-aware recipe selection
-
-### V3
-
-Make the pack production-grade as a standalone repo:
-
-- installation docs for Codex, Claude, Cursor, and compatible runtimes
-- skill packaging conventions
-- cross-framework examples
-- tests and validation for skill quality
-- optional MCP integrations for papers, GitHub, datasets, and experiments
-
-## Near-Term Additions
-
-The next skills worth adding are:
-
-- `long-context-posttraining`
-- `distillation-and-merging`
-- `data-mixture-design`
-- `judge-and-reward-shaping`
-
-## Non-Goals
-
-- being tied to one framework
-- being tied to one codebase
-- mixing algorithm-training skills with product-agent skills
-- replacing framework docs or academic papers
-
-## Status
-
-This is an early but real starting point.
-
-The next quality jump is not “more categories.” It is sharper boundaries, stronger scenario coverage, and better workflow composition between the skills that already exist.
+- data-mixture-design
+- reward-hacking-audit
+- long-context-posttraining
+- sample-review-protocol
+- judge-and-reward-shaping
 
 ## Open Source Basics
-
-This repository now includes:
 
 - [LICENSE](LICENSE)
 - [CONTRIBUTING.md](CONTRIBUTING.md)

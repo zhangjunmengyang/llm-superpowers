@@ -1,6 +1,6 @@
-# Training Systems
+# Training Systems Triage
 
-Use this file to choose the right systems stack and debug path.
+Use this file to structure the measurement board before you touch knobs.
 
 ## Core Building Blocks
 
@@ -13,50 +13,63 @@ Use this file to choose the right systems stack and debug path.
 - [sgl-project/sglang](https://github.com/sgl-project/sglang)
 - [AnswerDotAI/fsdp_qlora](https://github.com/AnswerDotAI/fsdp_qlora)
 
+## Minimum Measurement Board
+
+Record:
+
+- batch size
+- sequence length
+- tokens per second
+- step time
+- GPU utilization
+- peak memory
+- compile or data wait if visible
+- quality check after the intervention
+
 ## Bottleneck Map
 
 ### OOM
 
-Try:
+First levers:
 
 - lower sequence length
-- QLoRA or lower precision
-- gradient checkpointing
+- lower activation footprint
+- checkpointing
 - ZeRO or FSDP
-- activation offload
+- lower-precision or QLoRA-style paths
 
 ### Low Throughput
 
-Try:
+First levers:
 
-- FlashAttention
-- larger effective batch
-- fused kernels
+- FlashAttention or kernel choice
+- larger effective batch if utilization is low
 - dataloader cleanup
 - better parallelism layout
+- remove needless host-device stalls
 
 ### Instability
 
-Try:
+First levers:
 
 - reduce learning rate
 - inspect gradient norms
-- check mixed precision settings
-- verify loss scaling and NaN sources
+- verify mixed precision settings
+- check loss scaling and NaN origin
 - isolate bad samples
 
 ### Serving Bottleneck
 
-Try:
+First levers:
 
 - vLLM or SGLang
 - continuous batching
 - KV cache tuning
-- tensor parallelism only if needed
+- only then tensor parallelism if needed
 
 ## Decision Heuristics
 
 - use DeepSpeed when ZeRO and optimizer sharding dominate
-- use FSDP when you want more native PyTorch control
+- use FSDP when you want native PyTorch control
 - use Megatron or TorchTitan for larger-scale pretraining patterns
-- use vLLM or SGLang for serious serving work instead of a raw transformers loop
+- use vLLM or SGLang for serious serving instead of a raw transformers loop

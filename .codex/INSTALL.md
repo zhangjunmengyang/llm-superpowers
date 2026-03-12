@@ -26,17 +26,25 @@ After install, confirm the following directory exists:
 ${CODEX_HOME:-$HOME/.codex}/skills
 ```
 
-The starter profile should install:
+The starter profile should install the core operating set:
 
 - `llm-posttrain-pipeline`
+- `llm-synthetic-data`
 - `llm-eval-loop`
-- `llm-reasoning-posttrain`
-- `sft-recipe-design`
-- `preference-optimization`
-- `training-systems-debug`
+- `llm-training-systems`
+- `llm-research-to-recipe`
+- `run-ledger-and-keep-discard`
+- `checkpoint-regression-triage`
+- `throughput-and-oom-triage`
+
+If you need reasoning-specific skills too, add:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zhangjunmengyang/llm-superpowers/main/scripts/install.sh | bash -s -- --runtime codex --skill llm-reasoning-posttrain --skill reasoning-prm-verifier
+```
 
 Then start with:
 
 ```text
-Use $llm-posttrain-pipeline to decide the next post-training stage for this model, recommend the best open-source framework, and define the minimum dataset and eval plan.
+Open programs/experiment-loop.md, then use $llm-posttrain-pipeline to turn this objective into one experiment card with a named baseline, one change surface, a success condition, a kill condition, and a rollback point.
 ```

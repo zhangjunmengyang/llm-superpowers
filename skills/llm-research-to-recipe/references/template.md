@@ -1,6 +1,6 @@
 # Research Extraction Template
 
-Use this template when converting a paper or repo into an engineering recipe.
+Use this template when converting a paper or repo into the next real experiment.
 
 ## Extract
 
@@ -13,7 +13,7 @@ Use this template when converting a paper or repo into an engineering recipe.
 - training stages
 - inference-time tricks
 - evaluation suite
-- ablations that actually matter
+- irreducible ingredients
 
 ## Cross-Check
 
@@ -21,20 +21,12 @@ Use this template when converting a paper or repo into an engineering recipe.
 - which pieces are missing
 - which hyperparameters are scale-specific
 - which datasets are unavailable or replaced
-
-## Good Public Sources
-
-- [huggingface/open-r1](https://github.com/huggingface/open-r1)
-- [allenai/open-instruct](https://github.com/allenai/open-instruct)
-- [huggingface/alignment-handbook](https://github.com/huggingface/alignment-handbook)
-- [volcengine/verl](https://github.com/volcengine/verl)
-- [OpenRLHF/OpenRLHF](https://github.com/OpenRLHF/OpenRLHF)
-- [rllm-org/rllm](https://github.com/rllm-org/rllm)
+- what is essential versus merely present
 
 ## Output Contract
 
 - faithful recipe
 - cheaper recipe
-- required data schema
-- required evaluation
-- open questions
+- first runnable experiment
+- first ablation queue
+- kill criteria

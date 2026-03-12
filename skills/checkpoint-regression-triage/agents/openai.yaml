@@ -1,0 +1,4 @@
+interface:
+  display_name: "Checkpoint Regression Triage"
+  short_description: "Turn bad slices into root-cause hypotheses and next runs"
+  default_prompt: "Use $checkpoint-regression-triage to analyze this candidate checkpoint regression and propose the next isolating run."

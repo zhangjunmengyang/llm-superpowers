@@ -12,6 +12,7 @@ Every runtime integration should preserve the same basic contract:
 - each skill exposes `SKILL.md`
 - each skill exposes `agents/openai.yaml`
 - each skill can load extra material from `references/`
+- the repository also ships `programs/` and `programs/templates/` as the operating layer
 
 If a runtime can discover folders that follow that contract, it can usually consume this repository with little extra glue.
 
@@ -106,25 +107,33 @@ Use this when your runtime does not support skill discovery yet.
 
 In that case:
 
-1. open the relevant skill folder
-2. read `SKILL.md`
-3. copy one of the starter prompts from [../examples/README.md](../examples/README.md)
-4. use the expected output shape from the example as your response contract
+1. open the relevant program in `programs/`
+2. open the lead skill folder
+3. copy the needed template from `programs/templates/`
+4. use one of the prompts from [../examples/README.md](../examples/README.md)
+5. make the returned artifact match the template
 
 This is weaker than native skill loading, but still enough to make the repository useful.
 
 ## First Install Recommendation
 
-For a new user, start with only these skills:
+For a new user, start with the operating-system core:
 
 - `llm-posttrain-pipeline`
+- `llm-synthetic-data`
 - `llm-eval-loop`
-- `llm-reasoning-posttrain`
-- `sft-recipe-design`
-- `preference-optimization`
-- `training-systems-debug`
+- `llm-training-systems`
+- `llm-research-to-recipe`
+- `run-ledger-and-keep-discard`
+- `checkpoint-regression-triage`
+- `throughput-and-oom-triage`
 
-That set covers most early post-training work without overloading the runtime with too many neighbors.
+Then add:
+
+- `llm-reasoning-posttrain`
+- `reasoning-prm-verifier`
+
+only when you are doing reasoning-specific work.
 
 ## Upgrade Discipline
 
@@ -139,5 +148,6 @@ When updating the repository in a real workflow:
 
 - do not flatten all skills into one giant file
 - do not rename skill folders casually after downstream adoption
-- do not load many umbrella skills as peers in the same prompt
+- do not skip the program and template layer when the task is a real experiment loop
+- do not load many loosely related skills as peers in the same prompt
 - do not treat the examples as framework-specific recipes

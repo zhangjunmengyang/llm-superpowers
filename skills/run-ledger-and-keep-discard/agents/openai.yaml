@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Ledger And Keep Discard"
+  short_description: "Log runs and decide keep, discard, crash, or investigate"
+  default_prompt: "Use $run-ledger-and-keep-discard to record this experiment and decide whether the run should be kept, discarded, or investigated."

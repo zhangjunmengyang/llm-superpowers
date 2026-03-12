@@ -1,6 +1,8 @@
 # Installation And Usage
 
-This repository is a skill pack. The exact installation flow depends on the coding-agent runtime.
+This repository is a training operating system packaged as a skill pack.
+
+Install the skills into your runtime, then use the repository's `programs/` docs and templates to run real experiment loops.
 
 ## Distribution Model
 
@@ -94,7 +96,7 @@ npx -y openskills install -u -y https://github.com/zhangjunmengyang/llm-superpow
 npx -y openskills sync
 ```
 
-This repository has been verified to install cleanly through OpenSkills and exposes all 14 current skills.
+This repository has been verified to install cleanly through OpenSkills and exposes all 17 current skills.
 
 ## Codex Bootstrap File
 
@@ -116,6 +118,21 @@ cd llm-superpowers
 
 You can switch to `--profile all` when you want the full pack.
 
+## What `starter` Installs
+
+The `starter` profile is the operating-system core:
+
+- `llm-posttrain-pipeline`
+- `llm-synthetic-data`
+- `llm-eval-loop`
+- `llm-training-systems`
+- `llm-research-to-recipe`
+- `run-ledger-and-keep-discard`
+- `checkpoint-regression-triage`
+- `throughput-and-oom-triage`
+
+Add reasoning-specific skills with `--skill llm-reasoning-posttrain --skill reasoning-prm-verifier`, or switch to `--profile all`.
+
 ## Repository Usage
 
 At minimum, another agent runtime needs access to:
@@ -123,13 +140,17 @@ At minimum, another agent runtime needs access to:
 - `skills/*/SKILL.md`
 - `skills/*/agents/openai.yaml`
 - `skills/*/references/*`
+- `programs/*`
+- `programs/templates/*`
 
 ## Generic Use Pattern
 
 1. Clone the repository.
 2. Point your runtime or skill loader at the `skills/` directory.
-3. Invoke one umbrella skill first.
-4. Hand off to one or two specialist modules only when needed.
+3. Open one program in `programs/`.
+4. Create a `runboard/` directory and copy the needed templates.
+5. Invoke one lead skill to produce the next artifact.
+6. Log the result and keep or discard the run.
 
 If your runtime cannot discover skills directly, use the fallback patterns in [runtime-patterns.md](runtime-patterns.md).
 
@@ -139,14 +160,16 @@ If you want the shortest path:
 
 1. Clone the repository.
 2. Load or expose the `skills/` directory to your runtime.
-3. Start with this prompt:
+3. Open `programs/experiment-loop.md`.
+4. Create `runboard/` and copy `programs/templates/experiment-card.md` plus `programs/templates/results.tsv`.
+5. Start with this prompt:
 
 ```text
-Use $llm-posttrain-pipeline to decide the next post-training stage for this model, recommend the best open-source framework, and define the minimum dataset and eval plan.
+Use $llm-posttrain-pipeline to turn this objective into one experiment card with a named baseline, one change surface, a success condition, a kill condition, and a rollback point.
 ```
 
-4. If the answer points to a narrower job, switch to the corresponding specialist module.
-5. Use the worked examples in `examples/` as templates.
+6. Run the experiment.
+7. Use `$llm-eval-loop` and `$run-ledger-and-keep-discard` to decide whether the run advances the baseline.
 
 For the fastest first session, also read [first-session.md](first-session.md).
 
@@ -192,24 +215,35 @@ The installer supports:
 
 ## Recommended Starting Pattern
 
-- use `llm-posttrain-pipeline` for new recipe planning
-- use `llm-reasoning-posttrain` for reasoning-specific work
-- use `llm-eval-loop` or `eval-and-regression-gates` for checkpoint comparison and signoff
-- use `llm-training-systems` or `training-systems-debug` for systems bottlenecks
+- use `programs/experiment-loop.md` plus `llm-posttrain-pipeline` for new runs
+- use `programs/eval-board.md` plus `llm-eval-loop` for checkpoint comparison
+- use `programs/systems-war-room.md` plus `llm-training-systems` for OOM or throughput triage
+- use `programs/research-to-experiment.md` plus `llm-research-to-recipe` for paper-to-run translation
+- add `llm-reasoning-posttrain` only when the target is reasoning behavior specifically
 
 ## Current Structure
 
-Umbrella skills:
+Programs:
+
+- `experiment-loop`
+- `eval-board`
+- `systems-war-room`
+- `research-to-experiment`
+
+Core operating skills:
 
 - `llm-posttrain-pipeline`
 - `llm-synthetic-data`
-- `llm-reasoning-posttrain`
 - `llm-eval-loop`
 - `llm-training-systems`
 - `llm-research-to-recipe`
+- `run-ledger-and-keep-discard`
+- `checkpoint-regression-triage`
+- `throughput-and-oom-triage`
 
-Specialist modules:
+Additional skills:
 
+- `llm-reasoning-posttrain`
 - `sft-recipe-design`
 - `preference-optimization`
 - `reward-modeling`
@@ -224,5 +258,5 @@ Specialist modules:
 The next install-layer improvements worth adding are:
 
 - more native runtime presets once their skill directories are stable
-- a compatibility table for AGENTS-based editors beyond OpenSkills
+- a compatibility table for more AGENTS-based editors
 - optional package-manager wrappers for teams that want pinned internal installs

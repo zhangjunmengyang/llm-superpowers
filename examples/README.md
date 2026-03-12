@@ -1,15 +1,14 @@
 # Examples
 
-[English](README.md) | [简体中文](README.zh-CN.md)
-
 This directory is for users who want to start fast.
 
 Each example shows:
 
-- when to use a skill
+- which program to start from
+- when to use a lead skill
 - a concrete starter prompt
 - the expected output shape
-- which supporting skill to call next
+- what artifact should come out
 
 ## Start Here
 
@@ -29,10 +28,11 @@ Each example shows:
 ## How To Use These
 
 1. Pick the example closest to your situation.
-2. Copy the starter prompt into your coding-agent runtime.
-3. Adjust the model, dataset, and target behavior.
-4. Keep one lead skill and at most one or two support skills.
+2. Open the matching program under `programs/`.
+3. Copy the starter prompt into your coding-agent runtime.
+4. Adjust the model, dataset, and target behavior.
+5. Keep one lead skill and one artifact contract.
 
 ## Coverage
 
-These examples cover all six umbrella skills in the repository, so a new user can reach every primary work mode without guessing where to start.
+These examples cover the main operating loops in the repository, so a new user can reach the primary training work modes without guessing where to start.

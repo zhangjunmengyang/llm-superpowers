@@ -1,6 +1,6 @@
 # Framework Map
 
-Use this file to choose a public codebase or framework. Favor mature open-source baselines over custom reinvention.
+Use this file to map an experiment idea to the smallest public stack that can run it.
 
 ## Core Frameworks
 
@@ -16,16 +16,18 @@ Use this file to choose a public codebase or framework. Favor mature open-source
 - [Lightning-AI/litgpt](https://github.com/Lightning-AI/litgpt)
 - [mosaicml/llm-foundry](https://github.com/mosaicml/llm-foundry)
 
-## Selection Heuristics
+## First-Run Mapping
 
-- choose `trl` for fast algorithm iteration
+- choose `trl` for quick offline post-training iteration
 - choose `verl` or `OpenRLHF` for distributed RL-heavy work
-- choose `open-r1` for reasoning-first public baselines
-- choose `LLaMA-Factory` or `axolotl` when breadth and speed matter more than purity
-- choose `torchtune` or `litgpt` when readability and teaching value matter
+- choose `open-r1` for public reasoning-first baselines
+- choose `open-instruct` when you want a readable post-training reference stack
+- choose `LLaMA-Factory` or `axolotl` when speed and breadth matter more than conceptual purity
+- choose `torchtune` or `litgpt` when readability and small-surface modification matter
 
-## Avoid
+## Rules
 
-- building a new trainer before exhausting public baselines
-- claiming framework support without a runnable recipe
-- mixing multiple frameworks in one first-pass experiment
+- prefer the smallest stack that can answer the experiment question
+- map one first run to one framework
+- do not build a new trainer before exhausting public baselines
+- do not claim a framework choice without naming the exact runnable path

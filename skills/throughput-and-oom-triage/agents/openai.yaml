@@ -1,0 +1,4 @@
+interface:
+  display_name: "Throughput And OOM Triage"
+  short_description: "Measure and fix OOMs or throughput collapse one axis at a time"
+  default_prompt: "Use $throughput-and-oom-triage to classify this operational failure and propose the next measured intervention."

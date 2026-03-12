@@ -1,145 +1,83 @@
 # Design Principles
 
-This document explains how `llm-superpowers` is supposed to be used and how future skills should be designed.
+This document explains the operating philosophy of `llm-superpowers`.
 
-## Core Assumption
+## Core Claim
 
-An LLM algorithm engineer is usually not asking for generic help.
+The repository should compress experiment discipline, not topic coverage.
 
-They are usually trying to do one of a small number of concrete jobs:
+If a file does not help an agent:
 
-- choose the right training stage
-- build or fix a dataset
-- improve reasoning behavior
-- evaluate a model change
-- debug a failed run
-- turn research into an experiment
+- decide the next run
+- measure a candidate against a baseline
+- triage an operational failure
+- translate research into a runnable recipe
+- record a keep or discard decision
 
-The repository should be optimized for those jobs, not for broad topic coverage.
-
-## What A Skill Is
-
-A skill in this repository is not:
-
-- a tutorial
-- a long survey
-- a framework wrapper
-- a product workflow
-
-A skill is an operational decision aid for a specific type of algorithm-engineering work.
-
-It should help another coding agent answer:
-
-1. Is this the right skill to lead with?
-2. What should be decided first?
-3. What should be produced as output?
-4. Which neighboring skill should take over next?
+then it probably does not belong in the critical path.
 
 ## Repository Architecture
 
-The current architecture has four layers.
+The repository has three layers:
 
-### 1. Strategy
+1. Programs
+   - operating loops with start gates, artifacts, escalation paths, and success conditions
+2. Skills
+   - sharp local procedures that solve one decision problem well
+3. Templates
+   - durable artifacts such as experiment cards, eval boards, triage boards, and ledgers
 
-Used when the problem is “what should we run?”
+Programs own orchestration.
+Skills do not.
 
-Skills:
+## What A Good Skill Must Do
 
-- `llm-posttrain-pipeline`
-- `llm-research-to-recipe`
-
-### 2. Execution
-
-Used when the problem is “what data or recipe do we need?”
-
-Skills:
-
-- `llm-synthetic-data`
-- `llm-reasoning-posttrain`
-
-### 3. Judgment
-
-Used when the problem is “did it work?”
-
-Skills:
-
-- `llm-eval-loop`
-
-### 4. Systems
-
-Used when the problem is “why did the run fail or slow down?”
-
-Skills:
-
-- `llm-training-systems`
-
-## Skill Boundary Rules
-
-- `llm-posttrain-pipeline` chooses stage and algorithm. It should not become a deep data-crafting skill.
-- `llm-synthetic-data` designs data schemas and generation paths. It should not become a framework-selection skill.
-- `llm-reasoning-posttrain` is only for reasoning-specific improvement loops.
-- `llm-eval-loop` defines evidence and acceptance gates. It should not turn into a broad benchmarking encyclopedia.
-- `llm-training-systems` handles systems bottlenecks, not algorithm choice.
-- `llm-research-to-recipe` translates papers and repos into runnable artifacts, not full experiment execution.
-
-## Composition Rules
-
-Prefer one lead skill and one or two supporting skills.
-
-Good:
-
-- `llm-posttrain-pipeline` -> `llm-synthetic-data` -> `llm-eval-loop`
-- `llm-research-to-recipe` -> `llm-posttrain-pipeline`
-- `llm-reasoning-posttrain` -> `llm-eval-loop`
-- `llm-training-systems` -> `llm-eval-loop`
-
-Bad:
-
-- invoking four or five skills as peers without a lead
-- using `llm-training-systems` before deciding whether the recipe is even correct
-- using `llm-eval-loop` before defining the baseline and target behavior
-
-## Quality Bar For A Good Skill
-
-A strong skill should make the following clear:
+A strong skill makes all of these explicit:
 
 - when it should trigger
 - when it should not lead
-- what output it should produce
-- what neighboring skills it hands off to
+- what inputs matter first
+- what artifact it should produce
+- what hard rules must not be broken
+- what decision standard applies
 
-If a skill reads like a category label instead of an operating primitive, it is too broad.
+If a skill reads like a category card, it is too weak.
+If it owns a whole workflow, it is too broad.
+
+## What A Good Program Must Do
+
+A strong program defines:
+
+- required artifacts before the loop starts
+- the canonical loop itself
+- escalation points into other programs
+- what healthy output looks like
+
+Programs are where the repository should feel opinionated.
+
+## Non-Negotiable Experiment Rules
+
+- every serious run has a named baseline
+- every first isolating run changes one coherent surface only
+- every comparison freezes prompts, datasets, and decoding
+- every candidate leaves behind a durable artifact trail
+- every promotion decision is one of: keep, discard, crash, investigate
+- every keep decision reviews failures, not averages only
+- every systems fix gets a quality comparability check
+- every paper reproduction names irreducibles, approximation, and kill criteria
 
 ## Design Direction
 
-The long-term direction is to move from broad umbrellas to sharper algorithm modules.
+Future additions should mostly be:
 
-That means future work should mostly be:
+- sharper modules around real failure modes
+- better artifact contracts
+- better review checklists
+- better operating boards
 
-- splitting broad skills
-- improving boundaries
-- adding scenario coverage
-- adding better default outputs
+Future additions should not mostly be:
 
-It should not mostly be:
-
-- adding more topic names
-- chasing every new benchmark
-- mixing product engineering and training engineering
-
-## Umbrellas vs Specialists
-
-The repository now has two kinds of skills.
-
-Umbrellas:
-
-- lead a broad mode of work
-- own stage choice, composition, and hand-offs
-
-Specialists:
-
-- go deeper into one algorithmic subproblem
-- should usually be invoked after an umbrella has framed the task
-
-The repository gets better when specialists become sharper.
-It gets worse when umbrellas and specialists drift into each other.
+- more labels
+- more taxonomies
+- bigger benchmark lists
+- more framework name-dropping without decision logic

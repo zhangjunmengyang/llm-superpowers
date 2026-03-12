@@ -14,11 +14,13 @@ SKILLS_ROOT = REPO_ROOT / "skills"
 
 STARTER_PROFILE = [
     "llm-posttrain-pipeline",
+    "llm-synthetic-data",
     "llm-eval-loop",
-    "llm-reasoning-posttrain",
-    "sft-recipe-design",
-    "preference-optimization",
-    "training-systems-debug",
+    "llm-training-systems",
+    "llm-research-to-recipe",
+    "run-ledger-and-keep-discard",
+    "checkpoint-regression-triage",
+    "throughput-and-oom-triage",
 ]
 
 RUNTIME_DIRS = {
@@ -196,7 +198,8 @@ def main() -> int:
     print("")
     print("Next step:")
     print("- restart or reload your runtime if it caches skill directories")
-    print("- start with $llm-posttrain-pipeline or see examples/README.md")
+    print("- open programs/README.md and choose one operating loop")
+    print("- start with $llm-posttrain-pipeline or $llm-eval-loop")
     return 0
 
 

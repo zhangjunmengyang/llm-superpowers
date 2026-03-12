@@ -39,7 +39,9 @@ This path is useful for:
 
 ## Notes
 
-- `starter` installs the smallest high-value set for post-training work.
+- `starter` installs the core operating set that backs the repository's programs.
+- the `starter` profile is: `llm-posttrain-pipeline`, `llm-synthetic-data`, `llm-eval-loop`, `llm-training-systems`, `llm-research-to-recipe`, `run-ledger-and-keep-discard`, `checkpoint-regression-triage`, `throughput-and-oom-triage`
+- add `--skill llm-reasoning-posttrain` when your target is specifically reasoning improvement
 - switch to `--profile all` when you want every current skill in the repository.
 - use `--mode symlink` for a source-of-truth install from a local clone.
 - use `--target-dir /path/to/skills` when your runtime has a known directory but no preset yet.

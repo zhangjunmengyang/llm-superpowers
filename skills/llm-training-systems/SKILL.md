@@ -1,11 +1,11 @@
 ---
 name: llm-training-systems
-description: Distributed training, inference, and systems optimization for LLM development. Use when Codex needs to answer questions such as 'why are we OOMing', 'why did throughput collapse', 'why does this run diverge only at scale', diagnose unstable loss, broken parallelism, checkpointing issues, attention kernel problems, FSDP or DeepSpeed tradeoffs, or serving bottlenecks across training and inference stacks such as PyTorch, DeepSpeed, FSDP, Megatron, vLLM, and SGLang.
+description: Systems triage and measurement for OOMs, throughput collapse, instability, parallelism issues, and serving bottlenecks in LLM training work. Use when Codex needs to answer questions such as 'what should we measure first', 'which axis do we change next', 'why is this run invalid operationally', or turn a systems failure into a measured intervention plan with rollback and quality guards.
 ---
 
 # LLM Training Systems
 
-Use this skill when the problem is systems reality rather than algorithm theory.
+Use this skill when the problem is systems reality and the team needs a measured triage loop.
 
 ## Use This Skill First When
 
@@ -19,17 +19,29 @@ Use this skill when the problem is systems reality rather than algorithm theory.
 
 1. Identify the bottleneck class: memory, throughput, stability, communication, or serving.
 2. Reproduce the issue with the smallest credible configuration.
-3. Measure before changing multiple knobs.
+3. Build a measurement board before changing knobs.
 4. Change one axis at a time: precision, batch, sequence length, parallelism, attention kernel, checkpointing, optimizer sharding, or serving engine.
-5. Keep a working baseline while exploring aggressive optimizations.
+5. Keep a rollback-safe baseline while exploring.
 
-## Operating Rules
+## Required Output
+
+When using this skill, produce:
+
+- bottleneck class
+- smallest reproduction
+- measurement board
+- prioritized interventions
+- rollback point
+- quality guard
+
+## Hard Rules
 
 - Do not call a problem algorithmic until systems bottlenecks are measured.
 - Do not change model size, batch size, sequence length, and parallelism simultaneously.
 - Favor the simplest stack that meets the target scale.
 - Treat logging, profiling, and reproducibility as part of system design.
 - Separate training optimizations from inference optimizations.
+- Do not call a throughput win “real” until quality is rechecked.
 
 ## Do Not Lead With This Skill When
 
@@ -38,21 +50,6 @@ Use this skill when the problem is systems reality rather than algorithm theory.
 - the team lacks a credible evaluation loop
 - the real question is what a paper is actually proposing
 
-## Typical Hand-Offs
-
-- to `llm-eval-loop` to make sure optimizations preserve fairness and quality
-- to `llm-posttrain-pipeline` if systems pain reveals an unrealistic recipe choice
-
-## Output Shape
-
-When using this skill, produce:
-
-- bottleneck hypothesis
-- measurement plan
-- prioritized interventions
-- rollback point
-- validation criteria
-
 ## References
 
-- Read `references/systems.md` for stack selection and debug checklists.
+- Read `references/systems.md` for board fields, stack selection, and triage checklists.

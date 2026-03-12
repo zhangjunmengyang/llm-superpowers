@@ -1,81 +1,106 @@
 # Default Workflows
 
-This document shows how the skills should compose in realistic algorithm-engineering work.
+This document shows the repository's program-led workflows.
 
-## Workflow 1: New Post-Training Plan
+## Workflow 1: New Experiment
 
-Use when a team has a base model and a target behavior but no settled recipe.
+Use when the team needs the next real run.
 
-1. `llm-posttrain-pipeline`
-2. `sft-recipe-design` or `preference-optimization`
-3. `llm-synthetic-data` or `data-curation-and-filtering`
-4. `llm-eval-loop`
-5. `llm-training-systems` if scaling becomes the bottleneck
+Program:
 
-Expected outputs:
+- `programs/experiment-loop.md`
 
-- stage and algorithm choice
-- dataset schema
-- benchmark plan
-- scaling notes
+Lead skills:
 
-## Workflow 2: Reasoning Improvement
-
-Use when the model needs stronger math, code, or multi-step reasoning.
-
-1. `llm-reasoning-posttrain`
-2. `reasoning-prm-verifier`
-3. `llm-synthetic-data` or `data-curation-and-filtering`
-4. `llm-eval-loop`
-5. `llm-training-systems` if the RL or verifier loop becomes expensive
+- `llm-posttrain-pipeline`
+- `llm-synthetic-data`
+- `llm-eval-loop`
+- `run-ledger-and-keep-discard`
 
 Expected outputs:
 
-- reasoning recipe
-- trace and label schema
-- verifier or reward definition
-- reasoning-specific eval gates
+- experiment card
+- `results.tsv` row
+- explicit keep, discard, crash, or investigate decision
+- next question
 
-## Workflow 3: Research Reproduction
+## Workflow 2: Candidate Review
+
+Use when a checkpoint exists and baseline advancement is the decision.
+
+Program:
+
+- `programs/eval-board.md`
+
+Lead skills:
+
+- `llm-eval-loop`
+- `checkpoint-regression-triage`
+
+Expected outputs:
+
+- eval board
+- failure slices
+- sampled bad cases
+- ship, hold, investigate, or rollback decision
+
+## Workflow 3: Systems Recovery
+
+Use when the run is invalid because of OOM, instability, or throughput collapse.
+
+Program:
+
+- `programs/systems-war-room.md`
+
+Lead skills:
+
+- `llm-training-systems`
+- `throughput-and-oom-triage`
+- `llm-eval-loop`
+
+Expected outputs:
+
+- triage board
+- one-axis intervention plan
+- rollback point
+- quality comparability check
+
+## Workflow 4: Research Translation
 
 Use when the starting point is a paper or public repo.
 
-1. `llm-research-to-recipe`
-2. `llm-posttrain-pipeline`
-3. one specialist module such as `sft-recipe-design`, `preference-optimization`, or `reward-modeling`
-4. `llm-eval-loop`
-5. `llm-training-systems` if the reproduction must scale
+Program:
+
+- `programs/research-to-experiment.md`
+
+Lead skills:
+
+- `llm-research-to-recipe`
+- `llm-posttrain-pipeline`
 
 Expected outputs:
 
-- faithful recipe
-- cheaper approximation
-- experiment plan
-- validation criteria
+- reproduction plan
+- irreducibles
+- cheap approximation
+- first runnable experiment card
 
-## Workflow 4: Regression Triage
+## Workflow 5: Reasoning Improvement
 
-Use when a new checkpoint looks better in demos but something feels off.
+Use when the target is reasoning behavior specifically.
 
-1. `llm-eval-loop`
-2. `llm-posttrain-pipeline`
-3. `llm-synthetic-data`, `reasoning-prm-verifier`, or `preference-optimization`
+Program:
 
-Expected outputs:
+- usually `programs/experiment-loop.md`
 
-- regression diagnosis
-- likely root-cause layer
-- next experiment proposal
+Lead skills:
 
-## Workflow 5: Systems Bottleneck
-
-Use when the recipe is mostly settled and the run is blocked by systems issues.
-
-1. `llm-training-systems`
-2. `llm-eval-loop`
+- `llm-reasoning-posttrain`
+- `reasoning-prm-verifier`
+- `llm-eval-loop`
 
 Expected outputs:
 
-- bottleneck hypothesis
-- measured intervention order
-- rollback-safe optimization plan
+- reasoning trace design
+- verifier or PRM decision
+- reasoning-specific eval gates

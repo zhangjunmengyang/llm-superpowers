@@ -2,26 +2,25 @@
 
 This document is for the first ten minutes after installation.
 
-The objective is not to explore every skill. The objective is to get one useful answer with the right lead skill and a clear output contract.
+The objective is not to explore every skill. The objective is to produce one real artifact that can move training work forward.
 
-## Step 1: Pick One Work Mode
+## Step 1: Pick One Program
 
 Choose the closest starting point:
 
-- use `llm-posttrain-pipeline` when you need to decide the next training stage
-- use `llm-synthetic-data` when data quality or schema is the bottleneck
-- use `llm-reasoning-posttrain` when the target is reasoning correctness
-- use `llm-eval-loop` when you need to compare checkpoints
-- use `llm-training-systems` when runs are unstable, slow, or memory-bound
-- use `llm-research-to-recipe` when you need to turn a paper or repo into a runnable plan
+- use `programs/experiment-loop.md` when you are planning or running the next experiment
+- use `programs/eval-board.md` when you already have a candidate and need a promotion decision
+- use `programs/systems-war-room.md` when the run is operationally invalid
+- use `programs/research-to-experiment.md` when the starting point is a paper or public repo
 
-If two skills both seem plausible, start with the broader umbrella and let it hand off.
+Then pick one lead skill for that program.
 
 ## Step 2: Provide The Minimum Context
 
 A first session becomes much better if you provide:
 
 - model or checkpoint name
+- named baseline
 - target behavior that should improve
 - current assets such as SFT data, preference data, reward labels, traces, or benchmarks
 - constraints such as compute, latency, timeline, and serving limits
@@ -31,34 +30,36 @@ A first session becomes much better if you provide:
 
 Do not ask for “thoughts.”
 
-Ask for a decision artifact. A good first-session return usually includes:
+Ask for one of these artifacts:
 
-- recommendation
-- nearest alternatives and why they lost
-- minimum viable recipe
-- minimum viable evaluation plan
-- likely failure risks
-- next hand-off skill if needed
+- experiment card
+- eval board
+- systems triage board
+- reproduction plan
+- ledger row plus keep or discard decision
 
 ## Default Session Template
 
 ```text
-Use $<lead-skill> to help with this training decision.
+Program:
+- <experiment-loop | eval-board | systems-war-room | research-to-experiment>
+
+Use $<lead-skill> to produce the next artifact for this program.
 
 Context:
 - model or checkpoint: <name>
+- baseline: <named baseline>
 - target behavior: <what should improve>
 - current assets: <datasets, labels, traces, checkpoints, benchmarks>
 - constraints: <compute, latency, timeline>
 - main uncertainty: <what is unclear right now>
 
 Return:
-- best next move
-- why it beats the nearest alternatives
-- minimum recipe to try first
-- minimum eval plan
-- main risks
-- next skill to call if the task needs to go deeper
+- artifact type: <experiment card | eval board | triage board | reproduction plan | ledger row>
+- explicit decision
+- hard blockers
+- rollback point
+- next question
 ```
 
 ## Good First Sessions
@@ -72,7 +73,7 @@ Return:
 
 - asking for a full training stack without any model, data, or constraints
 - invoking four or five skills at once
-- asking for benchmarking before defining the target behavior
+- asking for benchmark conclusions without a named baseline
 - treating a systems slowdown as purely an algorithm problem
 
 ## Fastest Path

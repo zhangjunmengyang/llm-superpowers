@@ -1,11 +1,11 @@
 ---
 name: llm-synthetic-data
-description: Synthetic dataset design and generation for LLM training, alignment, and reasoning. Use when Codex needs to answer questions such as 'what should the dataset schema look like', 'how do we build chosen and rejected pairs', 'how do we label reasoning traces', or create and refine instruction corpora, preference pairs, reward data, reasoning traces, rejection-sampling pools, and schema-compatible datasets for SFT, DPO, reward models, PRM, RL, or public frameworks such as TRL, OpenRLHF, veRL, and Open-R1.
+description: Synthetic-data design for instruction corpora, preference pairs, reward data, reasoning traces, and rollout pools in LLM training. Use when Codex needs to answer questions such as 'what exact schema should we generate', 'what should be synthesized versus reviewed', 'how do we control contamination and negative quality', or turn a vague data need into a concrete source inventory, rubric, schema, and quality gates.
 ---
 
 # LLM Synthetic Data
 
-Use this skill to design the cheapest high-signal dataset that matches the target stage and a public training stack.
+Use this skill to design a data product that can survive audit, not just a prompting idea.
 
 ## Use This Skill First When
 
@@ -16,11 +16,11 @@ Use this skill to design the cheapest high-signal dataset that matches the targe
 
 ## Core Workflow
 
-1. Identify the target stage before generating any samples.
-2. Choose the smallest viable schema for that stage.
-3. Pick a data generation pattern that can be audited cheaply.
-4. Validate schema and length constraints before writing training code.
-5. Keep a clear split between source generation, filtering, and final export.
+1. Name the target stage before generating any samples.
+2. Build a source inventory: raw sources, teacher model, human review, or rule-based labels.
+3. Choose the smallest viable schema for the stage.
+4. Define what should be synthesized, what should be filtered, and what requires manual review.
+5. Freeze quality gates before bulk generation.
 
 ## Data Products
 
@@ -31,7 +31,19 @@ Use this skill to design the cheapest high-signal dataset that matches the targe
 - PRM labels
 - rollout prompts
 
-## Rules
+## Required Output
+
+When using this skill, produce:
+
+- target stage
+- source inventory
+- minimal schema
+- generation pattern
+- filtering or review policy
+- export format
+- contamination risks
+
+## Hard Rules
 
 - Start from schema, not from prompting style.
 - Prefer narrow, high-quality datasets over huge noisy dumps.
@@ -39,6 +51,7 @@ Use this skill to design the cheapest high-signal dataset that matches the targe
 - Generate contrastive negatives deliberately.
 - Keep train and eval generation pipelines separate.
 - Record contamination risk and reward rubric assumptions.
+- Do not generate at scale before the quality gates are fixed.
 
 ## Do Not Lead With This Skill When
 
@@ -47,27 +60,6 @@ Use this skill to design the cheapest high-signal dataset that matches the targe
 - the run is blocked by systems issues
 - the team already has candidate checkpoints and needs evaluation rather than new data
 
-## Typical Hand-Offs
-
-- to `llm-posttrain-pipeline` for recipe selection
-- to `data-curation-and-filtering` for filtering, dedup, and contamination control
-- to `sft-recipe-design` when SFT format and supervision choices dominate
-- to `preference-optimization` when pair quality becomes the main issue
-- to `llm-reasoning-posttrain` for reasoning-specific trace design
-- to `llm-eval-loop` for contamination-aware validation
-
-## Output Shape
-
-When using this skill, produce:
-
-- target stage
-- minimal schema
-- generation recipe
-- filtering rules
-- export format
-- acceptance checks
-- contamination risks
-
 ## References
 
-- Read `references/patterns.md` for generation patterns, schemas, and quality gates.
+- Read `references/patterns.md` for product matrices, quality gates, and common generation paths.
