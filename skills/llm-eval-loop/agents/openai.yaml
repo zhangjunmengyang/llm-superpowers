@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Eval Loop"
+  short_description: "Benchmark models, reward, and regressions"
+  default_prompt: "Use $llm-eval-loop to define a benchmark plan and acceptance gates for this candidate model."

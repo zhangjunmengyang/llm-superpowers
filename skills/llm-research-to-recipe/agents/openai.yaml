@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Research To Recipe"
+  short_description: "Convert papers into runnable recipes"
+  default_prompt: "Use $llm-research-to-recipe to turn this paper, repo, or benchmark into a concrete recipe and reproduction plan."

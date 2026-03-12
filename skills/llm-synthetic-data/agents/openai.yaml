@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Synthetic Data"
+  short_description: "Build reusable synthetic training datasets"
+  default_prompt: "Use $llm-synthetic-data to design a reusable synthetic dataset for this training or post-training task."

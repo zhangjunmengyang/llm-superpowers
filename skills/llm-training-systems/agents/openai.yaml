@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Training Systems"
+  short_description: "Debug scale, memory, and throughput issues"
+  default_prompt: "Use $llm-training-systems to diagnose this training or inference bottleneck and propose the highest-leverage fixes."

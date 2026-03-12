@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Reasoning Posttrain"
+  short_description: "Build reasoning, verifier, and RL recipes"
+  default_prompt: "Use $llm-reasoning-posttrain to turn this reasoning objective into a verifier or RL training recipe."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Posttrain Pipeline"
+  short_description: "Design stack-agnostic post-training plans"
+  default_prompt: "Use $llm-posttrain-pipeline to turn this objective into a framework-agnostic post-training recipe."
